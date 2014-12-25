@@ -26,7 +26,7 @@ public class Circus {
 
 	public void moveShapes() {
 		for (int i = 0; i < shapes.size(); i++)
-			shapes.get(i).move(Constants.FALLING_SHAPE_DX,
+			shapes.get(i).moveShape(Constants.FALLING_SHAPE_DX,
 					Constants.FALLING_SHAPE_DY);
 	}
 	
