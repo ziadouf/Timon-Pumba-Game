@@ -1,6 +1,6 @@
 public class Game {
 	private static Game instance = null;
-	private Circus Circus1, Circus2;
+	private static Circus Circus1, Circus2;
 
 	private Game() {
 		Circus1 = new Circus(Constants.P2_CIRCUS1_TOPX,
@@ -18,11 +18,11 @@ public class Game {
 		return instance;
 	}
 
-	public Circus getCircus1() {
+	public static Circus getCircus1() {
 		return Circus1;
 	}
 
-	public Circus getCircus2() {
+	public static Circus getCircus2() {
 		return Circus2;
 	}
 
