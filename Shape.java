@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Area;
 
 
 public abstract class Shape {
@@ -36,8 +37,14 @@ public abstract class Shape {
 		state = "outOfPool";
 	}
 	
-	abstract public boolean intersects(Shape shape) ;
+	public boolean intersects(Shape shape) {
+		Area shapeArea = shape.getArea();
+		Area myArea = getArea();
+		myArea.intersect(shapeArea);
+		return !myArea.isEmpty();
+	}
 	
 	abstract public void draw(Graphics2D g);
 	
+	abstract protected Area getArea ();
 }
