@@ -20,7 +20,6 @@ public class ClownStack extends Observer {
 		g.setColor(Color.BLACK);
 		g.fillRect(posx, posy, Constants.STACK_RECT_WIDTH,
 				Constants.STACK_RECT_HEIGHT);
-		System.out.println(posx + " " + posy + " " + Constants.STACK_RECT_WIDTH);
 	}
 
 	public void addShape(Shape shape) {

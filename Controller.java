@@ -47,7 +47,6 @@ public class Controller {
 	
 	public void moveClown () {
 		if (pressedKeys.contains(KeyEvent.VK_LEFT)) {
-			System.out.println("HOPPA");
 			Game.getCircus2().moveClown(Constants.CLOWN_SPEED * -1);
 		}
 		else if (pressedKeys.contains(KeyEvent.VK_RIGHT)) {

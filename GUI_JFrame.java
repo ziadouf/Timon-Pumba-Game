@@ -34,6 +34,7 @@ public class GUI_JFrame extends JFrame {
 		contentPane = new GUI_JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setFocusable(true);
 		setContentPane(contentPane);
 	}
 
