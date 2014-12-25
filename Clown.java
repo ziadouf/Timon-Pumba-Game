@@ -10,8 +10,13 @@ public class Clown {
 		posy = y;
 		S1 = new ClownStack(x + Constants.STACK_LEFT_POSITION_DIFF, y
 				+ Constants.STACK_TOP_POSITION_DIFF);
+		S1.attachObserver(S1);
+		// S1.attachObserver(Score);
+		
 		S2 = new ClownStack(x + Constants.STACK_RIGHT_POSITION_DIFF, y
 				+ Constants.STACK_TOP_POSITION_DIFF);
+		S2.attachObserver(S2);
+		// S2.attachObserver(Score);
 	}
 
 	public void draw(Graphics2D g) {

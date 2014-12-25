@@ -2,11 +2,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.Stack;
 
-public class ClownStack {
+public class ClownStack extends Observer {
 
 	Stack<Shape> shapesStack;
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	int posx, posy;
 
 	public ClownStack(int x, int y) {
@@ -15,14 +17,16 @@ public class ClownStack {
 	}
 
 	public void draw(Graphics2D g) {
+		g.setColor(Color.BLACK);
 		g.fillRect(posx, posy, Constants.STACK_RECT_WIDTH,
 				Constants.STACK_RECT_HEIGHT);
+		System.out.println(posx + " " + posy + " " + Constants.STACK_RECT_WIDTH);
 	}
 
 	public void addShape(Shape shape) {
 		shapesStack.add(shape);
 		if (checkWin())
-			win();
+			notifyAllObservers();
 	}
 
 	private boolean checkWin() {
@@ -36,13 +40,15 @@ public class ClownStack {
 		shapesStack.add(A);
 		return (A.getColor() == B.getColor() && A.getColor() == C.getColor());
 	}
-
-	private void win() {
-		shapesStack.pop();
-		shapesStack.pop();
-		shapesStack.pop();
-		// TODO(ziadouf): Should act as observer class to update Shapes and
-		// Score
+	
+	public void attachObserver (Observer observer) {
+		observers.add(observer);
+	}
+	
+	private void notifyAllObservers() {
+		for (int i=0 ; i<observers.size() ; i++) {
+			observers.get(i).update();
+		}
 	}
 
 	public boolean contains(Shape shape) {
@@ -59,6 +65,13 @@ public class ClownStack {
 	public void move(int dx, int dy) {
 		posx += dx;
 		posy += dy;
+	}
+
+	@Override
+	public void update() {
+		shapesStack.pop();
+		shapesStack.pop();
+		shapesStack.pop();
 	}
 
 }

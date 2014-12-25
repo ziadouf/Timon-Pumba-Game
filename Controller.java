@@ -1,3 +1,5 @@
+import java.awt.Graphics2D;
+
 
 public class Controller {
 	
@@ -14,9 +16,11 @@ public class Controller {
 		game = Game.getInstance();
 	}
 	
-	public void render () {
+	public void render (Graphics2D g) {
 		game.getCircus1().moveShapes();
 		game.getCircus2().moveShapes();
+		game.getCircus1().draw(g);
+		game.getCircus2().draw(g);
 	}
 	
 	public void handleKeyPress (int keyPressed) {
