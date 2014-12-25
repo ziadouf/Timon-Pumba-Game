@@ -2,22 +2,42 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 
-public class Shape {
-	public Color getColor () {
-		return null;
+public abstract class Shape {
+
+	private Color color ;
+	protected int x ;
+	protected int y ;
+	protected String state ;
+	
+	public void setColor(Color color)
+	{
+		this.color = color ;
 	}
 	
-	public boolean contains() {
-		return true;
+	public Color getColor()
+	{
+		return color ;
 	}
-
-	public void draw(Graphics2D g) {
-		// TODO Auto-generated method stub
+	
+	public void moveShape(int dx , int dy)
+	{
+		x = x + dx ;
+		y = y + dy ;
 		
 	}
-
-	public void move(int fallingShapeDx, int fallingShapeDy) {
-		// TODO Auto-generated method stub
-		
+	
+	public void reset ()
+	{
+		state = "inPool";
 	}
+	
+	public void extractFromPool ()
+	{
+		state = "outOfPool";
+	}
+	
+	abstract public boolean intersects(Shape shape) ;
+	
+	abstract public void draw(Graphics2D g);
+	
 }
