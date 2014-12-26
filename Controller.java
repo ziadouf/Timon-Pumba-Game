@@ -4,23 +4,23 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-
 public class Controller {
 	private static Controller instance = null;
 	private Set<Integer> pressedKeys = new HashSet<Integer>();
-	
 	private Game game;
 	private boolean isPaused = false;
+	private long lastBorrow = 0;
 
-	private Controller () {
+	private Controller() {
 	}
-	
-	public static Controller getInstance () {
-		if (instance == null) instance = new Controller();
+
+	public static Controller getInstance() {
+		if (instance == null)
+			instance = new Controller();
 		return instance;
 	}
-	
-	public void createGame () {
+
+	public void createGame() {
 		try {
 			game = Game.getInstance();
 		} catch (Exception e) {
@@ -28,20 +28,16 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
-	
-	public void render (Graphics2D g) {
+
+	public void render(Graphics2D g) {
 		try {
-			if (Game.shapesPool.getNumIdle() > 1) {
-				Game.getCircus1().addShape(Game.shapesPool.borrowObject());
-			}
-			if (Game.shapesPool.getNumIdle() > 1) {
-				Game.getCircus2().addShape(Game.shapesPool.borrowObject());
-			}
+			borrowShapes();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		System.out.println(Game.shapesPool.getNumActive() + " - " + Game.shapesPool.getNumIdle());
+		// System.out.println(Game.shapesPool.getNumActive() + " - " +
+		// Game.shapesPool.getNumIdle());
 		Game.getCircus1().moveShapes();
 		Game.getCircus2().moveShapes();
 		Game.getCircus1().draw(g);
@@ -49,29 +45,42 @@ public class Controller {
 		moveClown();
 	}
 	
-	public void handleKeyPress (int keyPressed) {
+	private void borrowShapes () throws Exception {
+		long timeNow = System.currentTimeMillis(); 
+		if (timeNow - lastBorrow >= 5000) {
+			if (Game.shapesPool.getNumIdle() > 0) {
+				Game.getCircus1().addShape(Game.shapesPool.borrowObject());
+			}
+			if (Game.shapesPool.getNumIdle() > 0) {
+				Game.getCircus2().addShape(Game.shapesPool.borrowObject());
+			}
+			lastBorrow = timeNow;
+		}
+	}
+	
+	public void handleKeyPress(int keyPressed) {
 		if (keyPressed == KeyEvent.VK_SPACE) {
-			if (isPaused) isPaused = false;
-			else isPaused = true;
+			if (isPaused)
+				isPaused = false;
+			else
+				isPaused = true;
 		}
 		pressedKeys.add(keyPressed);
 	}
-	
-	public void handleKeyRelease (int keyPressed) {
+
+	public void handleKeyRelease(int keyPressed) {
 		pressedKeys.remove(keyPressed);
 	}
-	
-	public void moveClown () {
+
+	public void moveClown() {
 		if (pressedKeys.contains(KeyEvent.VK_LEFT)) {
 			Game.getCircus2().moveClown(Constants.CLOWN_SPEED * -1);
-		}
-		else if (pressedKeys.contains(KeyEvent.VK_RIGHT)) {
+		} else if (pressedKeys.contains(KeyEvent.VK_RIGHT)) {
 			Game.getCircus2().moveClown(Constants.CLOWN_SPEED);
 		}
 		if (pressedKeys.contains(KeyEvent.VK_A)) {
 			Game.getCircus1().moveClown(Constants.CLOWN_SPEED * -1);
-		}
-		else if (pressedKeys.contains(KeyEvent.VK_D)) {
+		} else if (pressedKeys.contains(KeyEvent.VK_D)) {
 			Game.getCircus1().moveClown(Constants.CLOWN_SPEED);
 		}
 	}

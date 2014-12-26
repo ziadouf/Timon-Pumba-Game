@@ -37,6 +37,14 @@ public abstract class Shape {
 		state = "outOfPool";
 	}
 	
+	public void addToStack () {
+		state = "insideStack";
+	}
+	
+	public boolean isInStack () {
+		return (state.equals("insideStack"));
+	}
+	
 	public boolean intersects(Shape shape) {
 		Area shapeArea = shape.getArea();
 		Area myArea = getArea();

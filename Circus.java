@@ -23,21 +23,33 @@ public class Circus {
 		for (int i = 0; i < shapes.size(); i++)
 			shapes.get(i).draw(g);
 	}
-	
+
 	public void addShape(Shape shape) {
 		shapes.add(shape);
 	}
-	
+
 	public void moveShapes() {
-		for (int i = 0; i < shapes.size(); i++)
-			shapes.get(i).moveShape(Constants.FALLING_SHAPE_DX,
-					Constants.FALLING_SHAPE_DY);
+		for (int i = 0; i < shapes.size(); i++) {
+			if (!shapes.get(i).isInStack()) {
+				shapes.get(i).moveShape(Constants.FALLING_SHAPE_DX,
+						Constants.FALLING_SHAPE_DY);
+			}
+
+			if (clown.getStack1().contains(shapes.get(i))) {
+				clown.getStack1().addShape(shapes.get(i));
+			}
+
+			if (clown.getStack2().contains(shapes.get(i))) {
+				clown.getStack2().addShape(shapes.get(i));
+			}
+		}
 	}
-	
-	public void moveClown (int dx) {
+
+	public void moveClown(int dx) {
 		clown.move(dx, 0 /* dy */);
+		// TODO(ziadouf): move shapes inside stack
 	}
-	
+
 	public void checkOutOfCircus() {
 		// TODO(ziadouf): check shapes when falling to the ground and return
 		// them to the pool

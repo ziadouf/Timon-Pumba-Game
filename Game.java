@@ -10,8 +10,8 @@ public class Game {
 		Circus2 = new Circus(Constants.P2_CIRCUS2_TOPX,
 				Constants.P2_CIRCUS2_TOPY, Constants.P2_CIRCUS2_BOTTOMX,
 				Constants.P2_CIRCUS2_BOTTOMY);
-//		shapesPool.setMaxActive(10);
-		for (int i=0 ; i<100 ; i++) {
+		shapesPool.setMaxTotal(Constants.POOL_SIZE);
+		for (int i = 0; i < Constants.POOL_SIZE ; i++) {
 			shapesPool.addObject();
 		}
 	}

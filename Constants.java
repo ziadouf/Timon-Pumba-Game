@@ -19,17 +19,23 @@ public class Constants {
 
 	// CLOWN STACK DIMENSIONS
 	public static final int STACK_RECT_WIDTH = 20;
-	public static final int STACK_RECT_HEIGHT = 3;
+	public static final int STACK_RECT_HEIGHT = 5;
 	// CLOWN STACK POSITION
 	public static final int STACK_LEFT_POSITION_DIFF = -20;
 	public static final int STACK_RIGHT_POSITION_DIFF = 20;
-	public static final int STACK_TOP_POSITION_DIFF = -100;
-
+	public static final int STACK_TOP_POSITION_DIFF = 100;
+	
+	// SHAPES DIMENSIONS
+	public static final int CIRCLE_RADIUS = 30;
+	public static final int RECTANGLE_WIDTH = 30;
+	public static final int RECTANGLE_HEIGHT = 30;
+	
 	// FALLING SHAPES SPEED
 	public static final int FALLING_SHAPE_DX = 0;
-	public static final int FALLING_SHAPE_DY = 10;
+	public static final int FALLING_SHAPE_DY = 3;
 
 	// CLOWN MOVE SPEED
 	public static final int CLOWN_SPEED = 5;
 
+	public static final int POOL_SIZE = 5;
 }

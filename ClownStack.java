@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class ClownStack extends Observer {
 
-	Stack<Shape> shapesStack;
+	Stack<Shape> shapesStack = new Stack<Shape>();
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	int posx, posy;
 
@@ -24,6 +24,7 @@ public class ClownStack extends Observer {
 
 	public void addShape(Shape shape) {
 		shapesStack.add(shape);
+		shape.addToStack();
 		if (checkWin())
 			notifyAllObservers();
 	}
@@ -53,8 +54,8 @@ public class ClownStack extends Observer {
 	public boolean contains(Shape shape) {
 		if (shapesStack.empty()) {
 			Area shapeArea = shape.getArea();
-			shapeArea.intersect(new Area(new Rectangle2D.Double(posx, posy, Constants.STACK_RECT_WIDTH,
-					Constants.STACK_RECT_HEIGHT)));
+			Area stackArea = new Area(new Rectangle2D.Double(posx, posy, Constants.STACK_RECT_WIDTH, Constants.STACK_RECT_HEIGHT));
+			shapeArea.intersect(stackArea);
 			return !shapeArea.isEmpty();
 		} else {
 			return shape.intersects(shapesStack.peek());
@@ -71,6 +72,7 @@ public class ClownStack extends Observer {
 		shapesStack.pop();
 		shapesStack.pop();
 		shapesStack.pop();
+		// TODO(ziadouf): make a blink when removed + return them to the pool
 	}
 
 }

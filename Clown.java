@@ -31,4 +31,12 @@ public class Clown {
 		S1.move(dx, dy);
 		S2.move(dx, dy);
 	}
+	
+	public ClownStack getStack1 () {
+		return S1;
+	}
+	
+	public ClownStack getStack2 () {
+		return S2;
+	}
 }
