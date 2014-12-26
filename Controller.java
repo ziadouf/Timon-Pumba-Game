@@ -12,7 +12,7 @@ public class Controller {
 	private Game game;
 	private boolean isPaused = false;
 
-	private void Controller () {
+	private Controller () {
 	}
 	
 	public static Controller getInstance () {
@@ -21,15 +21,32 @@ public class Controller {
 	}
 	
 	public void createGame () {
-		game = Game.getInstance();
+		try {
+			game = Game.getInstance();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void render (Graphics2D g) {
-		game.getCircus1().moveShapes();
-		game.getCircus2().moveShapes();
-		game.getCircus1().draw(g);
-		game.getCircus2().draw(g);
-		//moveClown();
+		try {
+			if (Game.shapesPool.getNumIdle() > 1) {
+				Game.getCircus1().addShape(Game.shapesPool.borrowObject());
+			}
+			if (Game.shapesPool.getNumIdle() > 1) {
+				Game.getCircus2().addShape(Game.shapesPool.borrowObject());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		System.out.println(Game.shapesPool.getNumActive() + " - " + Game.shapesPool.getNumIdle());
+		Game.getCircus1().moveShapes();
+		Game.getCircus2().moveShapes();
+		Game.getCircus1().draw(g);
+		Game.getCircus2().draw(g);
+		moveClown();
 	}
 	
 	public void handleKeyPress (int keyPressed) {
@@ -38,7 +55,6 @@ public class Controller {
 			else isPaused = true;
 		}
 		pressedKeys.add(keyPressed);
-		moveClown();
 	}
 	
 	public void handleKeyRelease (int keyPressed) {

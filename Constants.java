@@ -27,7 +27,7 @@ public class Constants {
 
 	// FALLING SHAPES SPEED
 	public static final int FALLING_SHAPE_DX = 0;
-	public static final int FALLING_SHAPE_DY = 5;
+	public static final int FALLING_SHAPE_DY = 10;
 
 	// CLOWN MOVE SPEED
 	public static final int CLOWN_SPEED = 5;

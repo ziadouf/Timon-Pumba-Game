@@ -13,7 +13,6 @@ public class MultiKeyListener implements KeyListener {
 	
 	public void keyPressed (KeyEvent e) {
 		Controller.getInstance().handleKeyPress(e.getKeyCode());
-		panel.repaint();
 	}
 	
 	public void keyReleased (KeyEvent e) {

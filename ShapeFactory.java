@@ -17,18 +17,18 @@ public class ShapeFactory extends BasePooledObjectFactory<Shape> {
 	@Override
 	public Shape create() throws Exception {
 		Shape myshape = null ;
-		
-		if(shapeType.equals("C"))
-		{
-			myshape = new Circle(x,y) ;
-		}
-		
-		else if(shapeType.equals("R"))
-		{
-			myshape = new Rect(x,y) ;
-		}
-		
-		return myshape ;
+		return new Circle(100,0);
+//		if(shapeType.equals("C"))
+//		{
+//			myshape = new Circle(x,y) ;
+//		}
+//		
+//		else if(shapeType.equals("R"))
+//		{
+//			myshape = new Rect(x,y) ;
+//		}
+//		
+//		return myshape ;
 	}
 
 	@Override

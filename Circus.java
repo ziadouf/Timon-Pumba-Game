@@ -23,7 +23,11 @@ public class Circus {
 		for (int i = 0; i < shapes.size(); i++)
 			shapes.get(i).draw(g);
 	}
-
+	
+	public void addShape(Shape shape) {
+		shapes.add(shape);
+	}
+	
 	public void moveShapes() {
 		for (int i = 0; i < shapes.size(); i++)
 			shapes.get(i).moveShape(Constants.FALLING_SHAPE_DX,
