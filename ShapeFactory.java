@@ -1,3 +1,5 @@
+import java.util.Random;
+
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
@@ -5,30 +7,25 @@ import org.apache.commons.pool2.impl.DefaultPooledObject;
 public class ShapeFactory extends BasePooledObjectFactory<Shape> {
 
 	String shapeType;
-	int x , y;
-	
-	public Shape makeShape(String newShape , int x , int y) throws Exception{
-		shapeType = newShape;
-		this.x = x;
-		this.y = y;
-		return create();
-	}
 
 	@Override
 	public Shape create() throws Exception {
 		Shape myshape = null ;
-		return new Circle(400,0);
-//		if(shapeType.equals("C"))
-//		{
-//			myshape = new Circle(x,y) ;
-//		}
-//		
-//		else if(shapeType.equals("R"))
-//		{
-//			myshape = new Rect(x,y) ;
-//		}
-//		
-//		return myshape ;
+		
+		char[] shapeTypes = {'R','C'};
+		char shapeType = shapeTypes[new Random().nextInt(shapeTypes.length)];
+		int randomPosition = new Random().nextInt(Constants.BORDER_MAX_WIDTH);
+		if(shapeType == 'C')
+		{
+			myshape = new Circle(randomPosition,0) ;
+		}
+		
+		else if(shapeType == 'R')
+		{
+			myshape = new Rect(randomPosition,0) ;
+		}
+		
+		return myshape ;
 	}
 
 	@Override

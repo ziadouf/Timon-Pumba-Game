@@ -65,6 +65,10 @@ public class ClownStack extends Observer {
 	public void move(int dx, int dy) {
 		posx += dx;
 		posy += dy;
+//		System.out.println(posx + " " + posy);
+		for (Shape shape: shapesStack) {
+			shape.moveShape(dx, dy);
+		}
 	}
 
 	@Override

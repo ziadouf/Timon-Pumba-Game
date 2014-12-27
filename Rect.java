@@ -16,13 +16,13 @@ public class Rect extends Shape {
 	@Override
 	public void draw(Graphics2D g) {
 		g.setColor(getColor());
-		rect = new Rectangle2D.Double(x, y, 10, 10) ;
+		rect = new Rectangle2D.Double(x, y, Constants.RECTANGLE_WIDTH, Constants.RECTANGLE_HEIGHT) ;
 		g.draw(rect);		
 		
 	}
 
 	protected Area getArea() {
-		return new Area(new Rectangle2D.Double(x, y, 10, 10)) ;
+		return new Area(new Rectangle2D.Double(x, y, Constants.RECTANGLE_WIDTH, Constants.RECTANGLE_HEIGHT)) ;
 	}
 
 }

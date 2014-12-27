@@ -47,12 +47,12 @@ public class Controller {
 	
 	private void borrowShapes () throws Exception {
 		long timeNow = System.currentTimeMillis(); 
-		if (timeNow - lastBorrow >= 5000) {
-			if (Game.shapesPool.getNumIdle() > 0) {
-				Game.getCircus1().addShape(Game.shapesPool.borrowObject());
-			}
-			if (Game.shapesPool.getNumIdle() > 0) {
-				Game.getCircus2().addShape(Game.shapesPool.borrowObject());
+		if (timeNow - lastBorrow >= 500) {
+			int shapeNum = Math.min(Game.shapesPool.getNumIdle(), 1);
+			for (int i=0 ; i<shapeNum ; i++) {
+				Shape newShape = Game.shapesPool.borrowObject();
+				Game.getCircus1().addShape(newShape);
+				Game.getCircus2().addShape(newShape);
 			}
 			lastBorrow = timeNow;
 		}
