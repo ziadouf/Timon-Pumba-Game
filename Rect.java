@@ -17,7 +17,7 @@ public class Rect extends Shape {
 	public void draw(Graphics2D g) {
 		g.setColor(getColor());
 		rect = new Rectangle2D.Double(x, y, Constants.RECTANGLE_WIDTH, Constants.RECTANGLE_HEIGHT) ;
-		g.draw(rect);		
+		g.fill(rect);		
 		
 	}
 

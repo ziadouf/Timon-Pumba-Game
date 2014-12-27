@@ -6,24 +6,25 @@ public class Constants {
 	// CIRCUS DIMENSIONS
 	public static final int P2_CIRCUS1_TOPX = 0;
 	public static final int P2_CIRCUS1_TOPY = 0;
-	public static final int P2_CIRCUS1_BOTTOMX = 400;
+	public static final int P2_CIRCUS1_BOTTOMX = 480;
 	public static final int P2_CIRCUS1_BOTTOMY = 700;
-	public static final int P2_CIRCUS2_TOPX = 400;
+	public static final int P2_CIRCUS2_TOPX = 520;
 	public static final int P2_CIRCUS2_TOPY = 0;
-	public static final int P2_CIRCUS2_BOTTOMX = 800;
-	public static final int P2_CIRCUS2_BOTTOMY = 500;
+	public static final int P2_CIRCUS2_BOTTOMX = 1000;
+	public static final int P2_CIRCUS2_BOTTOMY = 700;
 
 	// CLOWN POSITION INSIDE CIRCUS
 	public static final int CLOWN_XPOSITION_DIFF = 100;
-	public static final int CLOWN_YPOSITION_DIFF = 300;
+	public static final int CLOWN_YPOSITION_DIFF = 500;
 
 	// CLOWN STACK DIMENSIONS
 	public static final int STACK_RECT_WIDTH = 40;
 	public static final int STACK_RECT_HEIGHT = 5;
+	public static final int BORDER_TOLERANCE = 15;	// To keep space between stack and game border.
 	// CLOWN STACK POSITION
-	public static final int STACK_LEFT_POSITION_DIFF = -100;
-	public static final int STACK_RIGHT_POSITION_DIFF = 30;
-	public static final int STACK_TOP_POSITION_DIFF = 100;
+	public static final int STACK_LEFT_POSITION_DIFF = 10;
+	public static final int STACK_RIGHT_POSITION_DIFF = 100;
+	public static final int STACK_TOP_POSITION_DIFF = 50;
 	
 	// SHAPES DIMENSIONS
 	public static final int CIRCLE_RADIUS = 20;

@@ -65,7 +65,6 @@ public class ClownStack extends Observer {
 	public void move(int dx, int dy) {
 		posx += dx;
 		posy += dy;
-//		System.out.println(posx + " " + posy);
 		for (Shape shape: shapesStack) {
 			shape.moveShape(dx, dy);
 		}
@@ -73,10 +72,15 @@ public class ClownStack extends Observer {
 
 	@Override
 	public void update() {
-		shapesStack.pop();
-		shapesStack.pop();
-		shapesStack.pop();
-		// TODO(ziadouf): make a blink when removed + return them to the pool
+		Game.shapesPool.returnObject(shapesStack.pop());
+		Game.shapesPool.returnObject(shapesStack.pop());
+		Game.shapesPool.returnObject(shapesStack.pop());
+		
+		// TODO(ziadouf): make a blink when removed.
+	}
+	
+	public int getX () {
+		return posx;
 	}
 
 }

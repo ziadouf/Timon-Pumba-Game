@@ -17,7 +17,7 @@ public class Circle extends Shape {
 		if (state.equals("inPool")) return;
 		g.setColor(getColor());
 		circle = new Ellipse2D.Double(x, y, 2*Constants.CIRCLE_RADIUS, 2*Constants.CIRCLE_RADIUS) ;
-		g.draw(circle);		
+		g.fill(circle);		
 		
 	}
 

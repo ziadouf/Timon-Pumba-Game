@@ -40,24 +40,25 @@ public class Controller {
 		// Game.shapesPool.getNumIdle());
 		Game.getCircus1().moveShapes();
 		Game.getCircus2().moveShapes();
+		Game.getCircus1().checkOutOfCircus();
+		Game.getCircus2().checkOutOfCircus();
 		Game.getCircus1().draw(g);
 		Game.getCircus2().draw(g);
 		moveClown();
 	}
-	
-	private void borrowShapes () throws Exception {
-		long timeNow = System.currentTimeMillis(); 
+
+	private void borrowShapes() throws Exception {
+		long timeNow = System.currentTimeMillis();
 		if (timeNow - lastBorrow >= 500) {
-			int shapeNum = Math.min(Game.shapesPool.getNumIdle(), 1);
-			for (int i=0 ; i<shapeNum ; i++) {
-				Shape newShape = Game.shapesPool.borrowObject();
-				Game.getCircus1().addShape(newShape);
-				Game.getCircus2().addShape(newShape);
-			}
+			if (Game.shapesPool.getNumIdle() == 0)
+				Game.shapesPool.addObject();
+			Shape newShape = Game.shapesPool.borrowObject();
+			Game.getCircus1().addShape(newShape);
+			Game.getCircus2().addShape(newShape);
 			lastBorrow = timeNow;
 		}
 	}
-	
+
 	public void handleKeyPress(int keyPressed) {
 		if (keyPressed == KeyEvent.VK_SPACE) {
 			if (isPaused)

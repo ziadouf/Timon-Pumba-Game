@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
+import java.util.Random;
 
 
 public abstract class Shape {
@@ -30,6 +31,8 @@ public abstract class Shape {
 	public void reset ()
 	{
 		state = "inPool";
+		y = 0;
+		x = new Random().nextInt(Constants.BORDER_MAX_WIDTH-50);
 	}
 	
 	public void extractFromPool ()
@@ -50,6 +53,10 @@ public abstract class Shape {
 		Area myArea = getArea();
 		myArea.intersect(shapeArea);
 		return !myArea.isEmpty();
+	}
+	
+	public boolean isOutOfBounds () {
+		return y > Constants.BORDER_MAX_HEIGHT;
 	}
 	
 	abstract public void draw(Graphics2D g);

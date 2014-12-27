@@ -15,6 +15,8 @@ public class Circus {
 		this.bottomY = bottomY;
 		clown = new Clown(topX + Constants.CLOWN_XPOSITION_DIFF, topY
 				+ Constants.CLOWN_YPOSITION_DIFF);
+		clown.setLimitLeft(topX);
+		clown.setLimitRight(bottomX);
 	}
 
 	public void draw(Graphics2D g) {
@@ -33,14 +35,13 @@ public class Circus {
 			if (!shapes.get(i).isInStack()) {
 				shapes.get(i).moveShape(Constants.FALLING_SHAPE_DX,
 						Constants.FALLING_SHAPE_DY);
-			}
-
-			if (clown.getStack1().contains(shapes.get(i))) {
-				clown.getStack1().addShape(shapes.get(i));
-			}
-
-			if (clown.getStack2().contains(shapes.get(i))) {
-				clown.getStack2().addShape(shapes.get(i));
+				if (clown.getStack1().contains(shapes.get(i))) {
+					clown.getStack1().addShape(shapes.get(i));
+				}
+				if (i >= shapes.size()) continue;
+				if (clown.getStack2().contains(shapes.get(i))) {
+					clown.getStack2().addShape(shapes.get(i));
+				}
 			}
 		}
 	}
@@ -51,7 +52,11 @@ public class Circus {
 	}
 
 	public void checkOutOfCircus() {
-		// TODO(ziadouf): check shapes when falling to the ground and return
-		// them to the pool
+		for (int i=0 ; i<shapes.size() ; i++) {
+			if (shapes.get(i).isOutOfBounds()) {
+				Game.shapesPool.returnObject(shapes.get(i));
+				i--;
+			}
+		}
 	}
 }
