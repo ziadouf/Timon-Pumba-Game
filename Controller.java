@@ -49,7 +49,7 @@ public class Controller {
 
 	private void borrowShapes() throws Exception {
 		long timeNow = System.currentTimeMillis();
-		if (timeNow - lastBorrow >= 500) {
+		if (timeNow - lastBorrow >= Constants.NUM_SECS_BETWEEN_FALLING * 1000) {
 			if (Game.shapesPool.getNumIdle() == 0)
 				Game.shapesPool.addObject();
 			Shape newShape = Game.shapesPool.borrowObject();

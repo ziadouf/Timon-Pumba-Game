@@ -23,6 +23,7 @@ public class ClownStack extends Observer {
 	}
 
 	public void addShape(Shape shape) {
+		calibrate(shape);
 		shapesStack.add(shape);
 		shape.addToStack();
 		if (checkWin())
@@ -59,6 +60,14 @@ public class ClownStack extends Observer {
 			return !shapeArea.isEmpty();
 		} else {
 			return shape.intersects(shapesStack.peek());
+		}
+	}
+	
+	public void calibrate(Shape shape) {
+		if (shapesStack.empty()) {
+			shape.setPosition(posx, posy - Constants.RECTANGLE_HEIGHT);
+		} else {
+			shape.setPosition(posx, shapesStack.peek().y - Constants.RECTANGLE_HEIGHT);
 		}
 	}
 

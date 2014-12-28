@@ -39,4 +39,5 @@ public class Constants {
 	public static final int CLOWN_SPEED = 5;
 
 	public static final int POOL_SIZE = 100;
+	public static final double NUM_SECS_BETWEEN_FALLING = 1;
 }

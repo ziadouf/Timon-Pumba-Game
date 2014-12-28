@@ -48,6 +48,11 @@ public abstract class Shape {
 		return (state.equals("insideStack"));
 	}
 	
+	public void setPosition (int x , int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public boolean intersects(Shape shape) {
 		Area shapeArea = shape.getArea();
 		Area myArea = getArea();
