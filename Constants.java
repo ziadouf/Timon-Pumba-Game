@@ -1,17 +1,15 @@
 public class Constants {
-	// GAME BORDER DIMENSIOMS
-	public static final int BORDER_MAX_WIDTH = 1000;
-	public static final int BORDER_MAX_HEIGHT = 700;
-
-	// CIRCUS DIMENSIONS
-	public static final int P2_CIRCUS1_TOPX = 0;
-	public static final int P2_CIRCUS1_TOPY = 0;
-	public static final int P2_CIRCUS1_BOTTOMX = 480;
-	public static final int P2_CIRCUS1_BOTTOMY = 700;
-	public static final int P2_CIRCUS2_TOPX = 520;
-	public static final int P2_CIRCUS2_TOPY = 0;
-	public static final int P2_CIRCUS2_BOTTOMX = 1000;
-	public static final int P2_CIRCUS2_BOTTOMY = 700;
+	// GAME DIMENSIOMS (Initialized in JFrame.update())
+	public static int BORDER_MAX_WIDTH = 1000;
+	public static int BORDER_MAX_HEIGHT = 700;
+	public static int P2_CIRCUS1_TOPX;
+	public static int P2_CIRCUS1_TOPY;
+	public static int P2_CIRCUS1_BOTTOMX;
+	public static int P2_CIRCUS1_BOTTOMY;
+	public static int P2_CIRCUS2_TOPX;
+	public static int P2_CIRCUS2_TOPY;
+	public static int P2_CIRCUS2_BOTTOMX;
+	public static int P2_CIRCUS2_BOTTOMY;
 
 	// CLOWN POSITION INSIDE CIRCUS
 	public static final int CLOWN_XPOSITION_DIFF = 100;
