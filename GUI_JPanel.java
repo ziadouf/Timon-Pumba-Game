@@ -14,7 +14,7 @@ import javax.swing.Timer;
 public class GUI_JPanel extends JPanel implements ActionListener {
 
 	Controller play = Controller.getInstance();
-	Timer timer = new Timer(25, this);
+	Timer timer = new Timer(200, this);
 	MultiKeyListener keyListener;
 	
 	public GUI_JPanel() {
