@@ -1,8 +1,14 @@
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 public class Controller {
 	private static Controller instance = null;
@@ -30,21 +36,33 @@ public class Controller {
 	}
 
 	public void render(Graphics2D g) {
-		try {
-			borrowShapes();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (!isPaused) {
+			try {
+				borrowShapes();
+			} catch (Exception e) {}
+			Game.getCircus1().moveShapes();
+			Game.getCircus2().moveShapes();
+			Game.getCircus1().checkOutOfCircus();
+			Game.getCircus2().checkOutOfCircus();
 		}
-		// System.out.println(Game.shapesPool.getNumActive() + " - " +
-		// Game.shapesPool.getNumIdle());
-		Game.getCircus1().moveShapes();
-		Game.getCircus2().moveShapes();
-		Game.getCircus1().checkOutOfCircus();
-		Game.getCircus2().checkOutOfCircus();
 		Game.getCircus1().draw(g);
 		Game.getCircus2().draw(g);
-		moveClown();
+		if (!isPaused) {
+			moveClown();
+		}
+		if (isPaused) {
+			BufferedImage image = null;
+			try {
+				image = ImageIO.read(new URL("http://themusictest.files.wordpress.com/2010/06/paused.jpg"));
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			g.drawImage(image, 0 , 0 , null);
+		}
 	}
 
 	private void borrowShapes() throws Exception {
