@@ -1,11 +1,19 @@
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
 
 public class Clown {
 
 	private int posx, posy;
 	private int limitLeft, limitRight;
 	private ClownStack S1, S2;
-
+	private BufferedImage clownImg = null;
+	
 	public Clown(int x, int y) {
 		posx = x;
 		posy = y;
@@ -21,11 +29,24 @@ public class Clown {
 	}
 
 	public void draw(Graphics2D g) {
-		// TODO(ziadouf): draw clown body
+		g.drawImage(clownImg, posx, posy, null);
 		S1.draw(g);
 		S2.draw(g);
 	}
-
+	
+	public void setImage (String img) {
+		try {
+			clownImg = ImageIO
+					.read(new File("img/" + img));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void move(int dx, int dy) {
 		if ((S1.getX() - Constants.BORDER_TOLERANCE <= limitLeft && dx < 0)
 				|| (S2.getX() + Constants.STACK_RECT_WIDTH

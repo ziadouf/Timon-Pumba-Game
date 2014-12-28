@@ -13,16 +13,16 @@ public class Constants {
 
 	// CLOWN POSITION INSIDE CIRCUS
 	public static final int CLOWN_XPOSITION_DIFF = 100;
-	public static final int CLOWN_YPOSITION_DIFF = 500;
+	public static final int CLOWN_YPOSITION_DIFF = 480;
 
 	// CLOWN STACK DIMENSIONS
 	public static final int STACK_RECT_WIDTH = 40;
 	public static final int STACK_RECT_HEIGHT = 5;
 	public static final int BORDER_TOLERANCE = 15;	// To keep space between stack and game border.
 	// CLOWN STACK POSITION
-	public static final int STACK_LEFT_POSITION_DIFF = 10;
-	public static final int STACK_RIGHT_POSITION_DIFF = 100;
-	public static final int STACK_TOP_POSITION_DIFF = 50;
+	public static final int STACK_LEFT_POSITION_DIFF = 0;
+	public static final int STACK_RIGHT_POSITION_DIFF = 160;
+	public static final int STACK_TOP_POSITION_DIFF = -20;
 	
 	// SHAPES DIMENSIONS
 	public static final int CIRCLE_RADIUS = 20;

@@ -21,9 +21,9 @@ public class Circus {
 
 	public void draw(Graphics2D g) {
 		// TODO(ziadouf): draw background
-		clown.draw(g);
 		for (int i = 0; i < shapes.size(); i++)
 			shapes.get(i).draw(g);
+		clown.draw(g);
 	}
 
 	public void addShape(Shape shape) {
@@ -58,5 +58,9 @@ public class Circus {
 				i--;
 			}
 		}
+	}
+	
+	public Clown getClown () {
+		return clown;
 	}
 }

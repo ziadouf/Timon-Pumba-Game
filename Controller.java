@@ -51,17 +51,17 @@ public class Controller {
 			moveClown();
 		}
 		if (isPaused) {
-			BufferedImage image = null;
-			try {
-				image = ImageIO.read(new URL("http://themusictest.files.wordpress.com/2010/06/paused.jpg"));
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			g.drawImage(image, 0 , 0 , null);
+//			BufferedImage image = null;
+//			try {
+//				image = ImageIO.read(new URL("http://themusictest.files.wordpress.com/2010/06/paused.jpg"));
+//			} catch (MalformedURLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			g.drawImage(image, 0 , 0 , null);
 		}
 	}
 
