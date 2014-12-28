@@ -1,4 +1,6 @@
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
@@ -22,16 +24,11 @@ public class Circle extends Shape {
 		if (state.equals("inPool")) return;
 		g.setColor(getColor());
 		circle = new Ellipse2D.Double(x, y, 2*Constants.CIRCLE_RADIUS, 2*Constants.CIRCLE_RADIUS) ;
-		//g.fill(circle);
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File("img/bug_red.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		g.drawImage(img, x,y,80,80,null);
-		
+//		g.fill(circle);
+		Image img = null;
+		img = Toolkit.getDefaultToolkit().getImage(
+				new File("img/bug_red.png").getAbsolutePath());
+		g.drawImage(img, x, y, 80, 80, null);		
 	}
 
 	@Override
