@@ -44,6 +44,30 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		initiate();
 		play.initializeGame();
 		timer.start();
+		
+		int timonScoreAmount = 15 ;
+		int pumbaScoreAmount = 15 ;
+		JLabel  timonScore , pumbaScore ;
+		 timonScore = new JLabel(""+timonScoreAmount);
+	     timonScore.setLocation(520, 90);
+	     timonScore.setSize(40, 30);
+	     timonScore.setHorizontalAlignment(0);
+	     add(timonScore);
+	     
+	     pumbaScore = new JLabel(""+pumbaScoreAmount);
+	     pumbaScore.setLocation(779, 90);
+	     pumbaScore.setSize(40, 30);
+	     pumbaScore.setHorizontalAlignment(0);
+	     add(pumbaScore);
+	     
+	     timonScore.setFont(woodFont);
+	     timonScore.setForeground(new Color(255, 173, 101));
+	     timonScore.setSize(timonScore.getPreferredSize());
+	     
+	     pumbaScore.setFont(woodFont);
+	     pumbaScore.setForeground(new Color(255, 173, 101));
+	     pumbaScore.setSize(pumbaScore.getPreferredSize());
+     
 	}
 
 	@Override
