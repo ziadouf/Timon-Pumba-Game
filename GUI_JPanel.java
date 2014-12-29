@@ -15,17 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
-
 public class GUI_JPanel extends JPanel implements ActionListener {
 
 	Controller play = Controller.getInstance();
 	Timer timer = new Timer(25, this);
 	MultiKeyListener keyListener;
 	Font woodFont = null;
-	MenuItem pauseMenuResume , pauseMenuSave, pauseMenuBack;
+	MenuItem pauseMenuResume, pauseMenuSave, pauseMenuBack;
 	MenuItem gameoverMenuPlay, gameoverMenuBack;
 	MenuItem mainMenuNewGame, mainMenuContinue, mainMenuExit;
-	
+
 	public GUI_JPanel() {
 		try {
 			play.createGame();
@@ -33,13 +32,13 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 	JLabel label1 = new JLabel();
-		    label1.setText("SCORE");
-		    label1.setBounds(20, 10,300,50);
-		    label1.setFont(new Font("Serif", Font.BOLD, 52));
-		    label1.setForeground(new Color(255,178,102));
-		   // add(label1);
-		   
+		JLabel label1 = new JLabel();
+		label1.setText("SCORE");
+		label1.setBounds(20, 10, 300, 50);
+		label1.setFont(new Font("Serif", Font.BOLD, 52));
+		label1.setForeground(new Color(255, 178, 102));
+		// add(label1);
+
 		keyListener = new MultiKeyListener(this);
 		addKeyListener(keyListener);
 		initiate();
@@ -47,11 +46,6 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		timer.start();
 	}
 
-	 /*private String myMessage = "SCORE";  
-	  public void MyTestPanel(String s)  
-	    {  
-		  myMessage = s;  
-	    } */ 
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
@@ -62,16 +56,12 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		Image background = null;
 		background = Toolkit.getDefaultToolkit().getImage(
 				new File("img/background6.jpg").getAbsolutePath());
-		g2D.drawImage(background, 0, 0, Constants.BORDER_MAX_WIDTH, Constants.BORDER_MAX_HEIGHT, null);
-		
-		Image scorepic = null ;
-		scorepic = Toolkit.getDefaultToolkit().getImage(
-				new File("img/hakuna matata11.png").getAbsolutePath());
-		g.drawImage(scorepic, 470 , 0, null);
-		
-		//g2D.drawString(myMessage, 50, 50);
-		//Font font = new Font("Serif", Font.PLAIN, 96);
-		//g2D.setFont(font);
+		g2D.drawImage(background, 0, 0, Constants.BORDER_MAX_WIDTH,
+				Constants.BORDER_MAX_HEIGHT, null);
+
+		// g2D.drawString(myMessage, 50, 50);
+		// Font font = new Font("Serif", Font.PLAIN, 96);
+		// g2D.setFont(font);
 		// el satr el tany kan: g.drawImage(background,0,0,null);
 		// Draw Game
 		try {
@@ -80,7 +70,7 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		// Draw Menus
 		if (play.getState().equals("Paused"))
 			drawPauseMenu(g2D);
@@ -88,6 +78,12 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 			drawGameoverMenu(g2D);
 		if (play.getState().equals("MainMenu"))
 			drawMainMenu(g2D);
+		
+		Image scorepic = null;
+		scorepic = Toolkit.getDefaultToolkit().getImage(
+				new File("img/hakuna matata11.png").getAbsolutePath());
+		if (play.getState().equals("Playing") || play.getState().equals("Paused"))
+			g.drawImage(scorepic, 470, 0, null);
 	}
 
 	private void drawPauseMenu(Graphics2D g) {
@@ -95,7 +91,7 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 				Toolkit.getDefaultToolkit().getImage(
 						new File("img/semi_transparent_black.png")
 								.getAbsolutePath()), 0, 0, null);
-		for (MenuItem item: play.pauseMenu)
+		for (MenuItem item : play.pauseMenu)
 			item.getLbl().setVisible(true);
 	}
 
@@ -104,16 +100,16 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 				Toolkit.getDefaultToolkit().getImage(
 						new File("img/semi_transparent_black.png")
 								.getAbsolutePath()), 0, 0, null);
-		for (MenuItem item: play.gameoverMenu)
+		for (MenuItem item : play.gameoverMenu)
 			item.getLbl().setVisible(true);
 	}
-	
+
 	private void drawMainMenu(Graphics2D g) {
 		g.drawImage(
 				Toolkit.getDefaultToolkit().getImage(
 						new File("img/semi_transparent_black.png")
 								.getAbsolutePath()), 0, 0, null);
-		for (MenuItem item: play.mainMenu)
+		for (MenuItem item : play.mainMenu)
 			item.getLbl().setVisible(true);
 	}
 
@@ -181,7 +177,6 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		gameoverMenuBack.setPrevItem(gameoverMenuPlay);
 		play.gameoverMenu.add(gameoverMenuPlay);
 		play.gameoverMenu.add(gameoverMenuBack);
-		
 
 		// MAIN MENU
 		lbl = new JLabel(Constants.MENU_NEWGAME);
@@ -213,11 +208,11 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 	}
 
 	private void hideLabels() {
-		for (MenuItem item: play.pauseMenu)
+		for (MenuItem item : play.pauseMenu)
 			item.getLbl().setVisible(false);
-		for (MenuItem item: play.gameoverMenu)
+		for (MenuItem item : play.gameoverMenu)
 			item.getLbl().setVisible(false);
-		for (MenuItem item: play.mainMenu)
+		for (MenuItem item : play.mainMenu)
 			item.getLbl().setVisible(false);
 	}
 
