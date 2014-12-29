@@ -91,5 +91,9 @@ public class ClownStack extends Observer {
 	public int getX () {
 		return posx;
 	}
-
+	
+	public boolean isOutOfBounds () {
+		if (shapesStack.isEmpty()) return false;
+		return shapesStack.peek().isOutOfBounds();
+	}
 }

@@ -24,7 +24,7 @@ public class Circle extends Shape {
 		if (state.equals("inPool")) return;
 		g.setColor(getColor());
 		circle = new Ellipse2D.Double(x, y, 2*Constants.CIRCLE_RADIUS, 2*Constants.CIRCLE_RADIUS) ;
-//		g.fill(circle);
+		g.fill(circle);
 		Image img = null;
 		img = Toolkit.getDefaultToolkit().getImage(
 				new File("img/bug_red.png").getAbsolutePath());

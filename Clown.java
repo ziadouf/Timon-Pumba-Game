@@ -13,6 +13,7 @@ public class Clown {
 	private int limitLeft, limitRight;
 	private ClownStack S1, S2;
 	private BufferedImage clownImg = null;
+	private Score score;
 	
 	public Clown(int x, int y) {
 		posx = x;
@@ -20,14 +21,17 @@ public class Clown {
 		S1 = new ClownStack(x + Constants.STACK_LEFT_POSITION_DIFF, y
 				+ Constants.STACK_TOP_POSITION_DIFF);
 		S1.attachObserver(S1);
-		// S1.attachObserver(Score);
 
 		S2 = new ClownStack(x + Constants.STACK_RIGHT_POSITION_DIFF, y
 				+ Constants.STACK_TOP_POSITION_DIFF);
 		S2.attachObserver(S2);
-		// S2.attachObserver(Score);
 	}
-
+	
+	public void setScore (Score score) {
+		this.score = score;
+		S1.attachObserver(score);
+		S2.attachObserver(score);
+	}
 	public void draw(Graphics2D g) {
 		g.drawImage(clownImg, posx, posy, null);
 		S1.draw(g);

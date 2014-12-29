@@ -5,7 +5,7 @@ public class Score extends Observer{
 	
 	@Override
 	public void update() {
-		score ++;
+		score += Constants.SCORE_INCREMENT;
 	}
 	
 	public int getScore () {

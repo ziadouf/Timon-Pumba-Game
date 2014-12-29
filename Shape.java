@@ -61,7 +61,7 @@ public abstract class Shape {
 	}
 	
 	public boolean isOutOfBounds () {
-		return y > Constants.BORDER_MAX_HEIGHT;
+		return (y > Constants.BORDER_MAX_HEIGHT || y < 0);
 	}
 	
 	abstract public void draw(Graphics2D g);

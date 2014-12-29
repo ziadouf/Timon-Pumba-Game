@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -13,9 +14,13 @@ import javax.imageio.ImageIO;
 public class Controller {
 	private static Controller instance = null;
 	private Set<Integer> pressedKeys = new HashSet<Integer>();
+	public ArrayList<MenuItem> mainMenu = new ArrayList<MenuItem>();
+	public ArrayList<MenuItem> pauseMenu = new ArrayList<MenuItem>();
+	public ArrayList<MenuItem> gameoverMenu = new ArrayList<MenuItem>();
 	private Game game;
-	private boolean isPaused = false;
+	private String gameState;
 	private long lastBorrow = 0;
+	private MenuItem curSel;
 
 	private Controller() {
 	}
@@ -25,7 +30,13 @@ public class Controller {
 			instance = new Controller();
 		return instance;
 	}
-
+	
+	public void initializeGame() {
+		gameState = "MainMenu";
+		curSel = mainMenu.get(0);
+		curSel.setSelected(true);
+	}
+	
 	public void createGame() {
 		try {
 			game = Game.getInstance();
@@ -36,32 +47,36 @@ public class Controller {
 	}
 
 	public void render(Graphics2D g) {
-		if (!isPaused) {
+		if (gameState.equals("MainMenu")) {
+			
+		}
+		else if (gameState.equals("Playing")) {
 			try {
 				borrowShapes();
-			} catch (Exception e) {}
+			} catch (Exception e) {
+			}
 			Game.getCircus1().moveShapes();
 			Game.getCircus2().moveShapes();
-			Game.getCircus1().checkOutOfCircus();
-			Game.getCircus2().checkOutOfCircus();
-		}
-		Game.getCircus1().draw(g);
-		Game.getCircus2().draw(g);
-		if (!isPaused) {
+			if (Game.getCircus1().checkGameOver() || Game.getCircus2().checkGameOver()) {
+				gameState = "GameOver";
+				for (MenuItem item: gameoverMenu) {
+					item.setSelected(false);
+				}
+				curSel = gameoverMenu.get(0);
+				curSel.setSelected(true);
+				return;
+			} else {
+				Game.getCircus1().checkOutOfCircus();
+				Game.getCircus2().checkOutOfCircus();
+			}
+			Game.getCircus1().draw(g);
+			Game.getCircus2().draw(g);
 			moveClown();
 		}
-		if (isPaused) {
-//			BufferedImage image = null;
-//			try {
-//				image = ImageIO.read(new URL("http://themusictest.files.wordpress.com/2010/06/paused.jpg"));
-//			} catch (MalformedURLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			g.drawImage(image, 0 , 0 , null);
+		
+		else if (gameState.equals("Paused") || gameState.equals("GameOver")) {
+			Game.getCircus1().draw(g);
+			Game.getCircus2().draw(g);
 		}
 	}
 
@@ -78,11 +93,22 @@ public class Controller {
 	}
 
 	public void handleKeyPress(int keyPressed) {
-		if (keyPressed == KeyEvent.VK_SPACE) {
-			if (isPaused)
-				isPaused = false;
-			else
-				isPaused = true;
+		if (gameState.equals("MainMenu")) {
+			handleMainMenu(keyPressed);
+		}
+		else if (gameState.equals("Paused"))
+			handlePauseMenu(keyPressed);
+		else if (gameState.equals("GameOver")) {
+			handleGameoverMenu(keyPressed);
+		}
+		else if (keyPressed == KeyEvent.VK_SPACE
+				|| keyPressed == KeyEvent.VK_ESCAPE) {
+			gameState = "Paused";
+			for (MenuItem item: pauseMenu) {
+				item.setSelected(false);
+			}
+			curSel = pauseMenu.get(0);
+			curSel.setSelected(true);
 		}
 		pressedKeys.add(keyPressed);
 	}
@@ -102,5 +128,81 @@ public class Controller {
 		} else if (pressedKeys.contains(KeyEvent.VK_D)) {
 			Game.getCircus1().moveClown(Constants.CLOWN_SPEED);
 		}
+	}
+
+	public void handlePauseMenu(int keyPressed) {
+		if (keyPressed == KeyEvent.VK_DOWN) {
+			curSel.setSelected(false);
+			curSel = curSel.getNextItem();
+			curSel.setSelected(true);
+		} else if (keyPressed == KeyEvent.VK_UP) {
+			curSel.setSelected(false);
+			curSel = curSel.getPrevItem();
+			curSel.setSelected(true);
+		} else if (keyPressed == KeyEvent.VK_ENTER) {
+			String sel = curSel.getLbl().getText();
+			if (sel.equals(Constants.MENU_RESUME)) {
+				gameState = "Playing";
+			} else if (sel.equals(Constants.MENU_SAVE)) {
+				saveGame();
+			} else if (sel.equals(Constants.MENU_BACK)) {
+				initializeGame();
+				
+			}
+		}
+	}
+	
+	public void handleGameoverMenu(int keyPressed) {
+		if (keyPressed == KeyEvent.VK_DOWN) {
+			curSel.setSelected(false);
+			curSel = curSel.getNextItem();
+			curSel.setSelected(true);
+		} else if (keyPressed == KeyEvent.VK_UP) {
+			curSel.setSelected(false);
+			curSel = curSel.getPrevItem();
+			curSel.setSelected(true);
+		} else if (keyPressed == KeyEvent.VK_ENTER) {
+			String sel = curSel.getLbl().getText();
+			if (sel.equals(Constants.MENU_PLAYAGAIN)) {
+				game.newGame();
+				gameState = "Playing";
+			} else if (sel.equals(Constants.MENU_BACK)) {
+				initializeGame();
+			}
+		}
+	}
+	
+	public void handleMainMenu(int keyPressed) {
+		if (keyPressed == KeyEvent.VK_DOWN) {
+			curSel.setSelected(false);
+			curSel = curSel.getNextItem();
+			curSel.setSelected(true);
+		} else if (keyPressed == KeyEvent.VK_UP) {
+			curSel.setSelected(false);
+			curSel = curSel.getPrevItem();
+			curSel.setSelected(true);
+		} else if (keyPressed == KeyEvent.VK_ENTER) {
+			String sel = curSel.getLbl().getText();
+			if (sel.equals(Constants.MENU_NEWGAME)) {
+				game.newGame();
+				gameState = "Playing";
+			} else if (sel.equals(Constants.MENU_CONTINUE)) {
+				loadGame();
+			} else if (sel.equals(Constants.MENU_EXIT)) {
+				// TODO(ziadouf): Exit Game.
+			}
+		}
+	}
+
+	public void saveGame() {
+		// TODO(ziadouf): save to XML
+	}
+	
+	public void loadGame() {
+		// TODO(ziadouf): load from XML
+	}
+
+	public String getState() {
+		return gameState;
 	}
 }
