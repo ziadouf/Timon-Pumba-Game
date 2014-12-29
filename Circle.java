@@ -27,7 +27,7 @@ public class Circle extends Shape {
 //		g.fill(circle);
 		Image img = null;
 		img = Toolkit.getDefaultToolkit().getImage(
-				new File("img/bug_red.png").getAbsolutePath());
+				new File("img/bug_green.png").getAbsolutePath());
 		g.drawImage(img, x, y, 80, 80, null);		
 	}
 
