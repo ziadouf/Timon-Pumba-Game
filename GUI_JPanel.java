@@ -24,6 +24,9 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 	MenuItem pauseMenuResume, pauseMenuSave, pauseMenuBack;
 	MenuItem gameoverMenuPlay, gameoverMenuBack;
 	MenuItem mainMenuNewGame, mainMenuContinue, mainMenuExit;
+	int timonScoreAmount = 0 ;
+	int pumbaScoreAmount = 0 ;
+	JLabel  timonScore , pumbaScore ;
 
 	public GUI_JPanel() {
 		try {
@@ -45,17 +48,14 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		play.initializeGame();
 		timer.start();
 		
-		int timonScoreAmount = 15 ;
-		int pumbaScoreAmount = 15 ;
-		JLabel  timonScore , pumbaScore ;
 		 timonScore = new JLabel(""+timonScoreAmount);
-	     timonScore.setLocation(520, 90);
+	     timonScore.setLocation(510, 90);
 	     timonScore.setSize(40, 30);
 	     timonScore.setHorizontalAlignment(0);
 	     add(timonScore);
 	     
 	     pumbaScore = new JLabel(""+pumbaScoreAmount);
-	     pumbaScore.setLocation(779, 90);
+	     pumbaScore.setLocation(769, 90);
 	     pumbaScore.setSize(40, 30);
 	     pumbaScore.setHorizontalAlignment(0);
 	     add(pumbaScore);
@@ -252,7 +252,12 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
+			timonScore.setText(String.valueOf(Game.getCircus1().getScore().getScore()));
+			pumbaScore.setText(String.valueOf(Game.getCircus2().getScore().getScore()));
+			timonScore.setSize(timonScore.getPreferredSize());
+			pumbaScore.setSize(pumbaScore.getPreferredSize());
 			repaint();
 		}
+		
 	}
 }
