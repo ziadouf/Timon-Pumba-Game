@@ -44,29 +44,7 @@ public class GUI_JFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.setFocusable(true);
-		contentPane.setLayout(null);
-		
-//		Font customFont = null;
-//		try {
-//			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("woodcut.ttf")).deriveFont(48f);
-//		} catch (FontFormatException | IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-//        //register the font
-//        try {
-//			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("woodcut.ttf")));
-//		} catch (FontFormatException | IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    		
-//		JLabel label = new JLabel("PAUSE");
-//		label.setLocation(200, 200);
-//		label.setSize(800, 200);
-//		contentPane.add(label);
-//		label.setFont(customFont);
+		contentPane.setLayout(null);		
 		setContentPane(contentPane);
 	}
 

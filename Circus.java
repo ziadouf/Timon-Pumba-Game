@@ -5,7 +5,7 @@ public class Circus {
 
 	private int topX, topY, bottomX, bottomY;
 	private Clown clown;
-	// Background
+	private Score score;
 	ArrayList<Shape> shapes = new ArrayList<Shape>();
 
 	public Circus(int topX, int topY, int bottomX, int bottomY) {
@@ -13,14 +13,15 @@ public class Circus {
 		this.topY = topY;
 		this.bottomX = bottomX;
 		this.bottomY = bottomY;
+		this.score = new Score();
 		clown = new Clown(topX + Constants.CLOWN_XPOSITION_DIFF, topY
 				+ Constants.CLOWN_YPOSITION_DIFF);
 		clown.setLimitLeft(topX);
 		clown.setLimitRight(bottomX);
+		clown.setScore(score);
 	}
 
 	public void draw(Graphics2D g) {
-		// TODO(ziadouf): draw background
 		for (int i = 0; i < shapes.size(); i++)
 			shapes.get(i).draw(g);
 		clown.draw(g);
@@ -48,7 +49,6 @@ public class Circus {
 
 	public void moveClown(int dx) {
 		clown.move(dx, 0 /* dy */);
-		// TODO(ziadouf): move shapes inside stack
 	}
 
 	public void checkOutOfCircus() {
@@ -60,7 +60,15 @@ public class Circus {
 		}
 	}
 	
+	public boolean checkGameOver() {
+		return (clown.getStack1().isOutOfBounds() || clown.getStack2().isOutOfBounds());
+	}
+	
 	public Clown getClown () {
 		return clown;
+	}
+	
+	public Score getScore () {
+		return score;
 	}
 }

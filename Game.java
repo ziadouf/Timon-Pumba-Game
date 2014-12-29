@@ -24,7 +24,18 @@ public class Game {
 		}
 		return instance;
 	}
-
+	
+	public void newGame () {
+		Circus1 = new Circus(Constants.P2_CIRCUS1_TOPX,
+				Constants.P2_CIRCUS1_TOPY, Constants.P2_CIRCUS1_BOTTOMX,
+				Constants.P2_CIRCUS1_BOTTOMY);
+		Circus1.getClown().setImage("timon_clown3.png");
+		Circus2 = new Circus(Constants.P2_CIRCUS2_TOPX,
+				Constants.P2_CIRCUS2_TOPY, Constants.P2_CIRCUS2_BOTTOMX,
+				Constants.P2_CIRCUS2_BOTTOMY);
+		Circus2.getClown().setImage("pumbaa_clown4.png");
+	}
+	
 	public static Circus getCircus1() {
 		return Circus1;
 	}
