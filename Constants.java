@@ -31,7 +31,7 @@ public class Constants {
 	public static final int CLOWN_YPOSITION_DIFF = 480;
 
 	// CLOWN STACK DIMENSIONS
-	public static final int STACK_RECT_WIDTH = 40;
+	public static final int STACK_RECT_WIDTH = 80;
 	public static final int STACK_RECT_HEIGHT = 5;
 	public static final int BORDER_TOLERANCE = 15;	// To keep space between stack and game border.
 	// CLOWN STACK POSITION
@@ -41,8 +41,8 @@ public class Constants {
 	
 	// SHAPES DIMENSIONS
 	public static final int CIRCLE_RADIUS = 20;
-	public static final int RECTANGLE_WIDTH = 40;
-	public static final int RECTANGLE_HEIGHT = 40;
+	public static final int RECTANGLE_WIDTH = 80;
+	public static final int RECTANGLE_HEIGHT = 50;
 	
 	// FALLING SHAPES SPEED
 	public static final int FALLING_SHAPE_DX = 0;

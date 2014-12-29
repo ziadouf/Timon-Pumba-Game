@@ -10,6 +10,12 @@ public abstract class Shape {
 	protected int x ;
 	protected int y ;
 	protected String state ;
+	protected String suffix;
+	
+	public void setSuffix(String suffix)
+	{
+		this.suffix = suffix ;
+	}
 	
 	public void setColor(Color color)
 	{

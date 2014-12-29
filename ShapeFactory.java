@@ -15,21 +15,23 @@ public class ShapeFactory extends BasePooledObjectFactory<Shape> {
 		
 		char[] shapeTypes = {'R','C'};
 		Color [] shapeColors = {Color.blue,Color.red,Color.green,Color.yellow};
+		String [] shapeSuffix = {"blue","red","green","yellow"};
 		char shapeType = shapeTypes[new Random().nextInt(shapeTypes.length)];
-		Color shapeColor = shapeColors[new Random().nextInt(shapeColors.length)];
+		int shapeColor = new Random().nextInt(shapeColors.length);
 		int randomPosition = new Random().nextInt(Constants.BORDER_MAX_WIDTH-50);
 		
 		if(shapeType == 'C')
 		{
-			myshape = new Circle(randomPosition,0) ;
+			myshape = new Bug(randomPosition,0) ;
 		}
 		
 		else if(shapeType == 'R')
 		{
-			myshape = new Rect(randomPosition,0) ;
+			myshape = new Bug(randomPosition,0) ;
 		}
 		
-		myshape.setColor(shapeColor);
+		myshape.setColor(shapeColors[shapeColor]);
+		myshape.setSuffix(shapeSuffix[shapeColor]);
 		return myshape ;
 	}
 
