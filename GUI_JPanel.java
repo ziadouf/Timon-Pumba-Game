@@ -62,6 +62,7 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		Image background = null;
 		background = Toolkit.getDefaultToolkit().getImage(
 				new File("img/background6.jpg").getAbsolutePath());
+		g2D.drawImage(background, 0, 0, Constants.BORDER_MAX_WIDTH, Constants.BORDER_MAX_HEIGHT, null);
 		
 		Image scorepic = null ;
 		scorepic = Toolkit.getDefaultToolkit().getImage(
@@ -71,7 +72,6 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		//g2D.drawString(myMessage, 50, 50);
 		//Font font = new Font("Serif", Font.PLAIN, 96);
 		//g2D.setFont(font);
-		g2D.drawImage(background, 0, 0, Constants.BORDER_MAX_WIDTH, Constants.BORDER_MAX_HEIGHT, null);
 		// el satr el tany kan: g.drawImage(background,0,0,null);
 		// Draw Game
 		try {
