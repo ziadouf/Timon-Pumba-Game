@@ -22,9 +22,9 @@ public class Circus {
 	}
 
 	public void draw(Graphics2D g) {
+		clown.draw(g);
 		for (int i = 0; i < shapes.size(); i++)
 			shapes.get(i).draw(g);
-		clown.draw(g);
 	}
 
 	public void addShape(Shape shape) {
