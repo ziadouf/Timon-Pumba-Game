@@ -1,4 +1,6 @@
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +14,7 @@ public class Clown {
 	private int posx, posy;
 	private int limitLeft, limitRight;
 	private ClownStack S1, S2;
-	private BufferedImage clownImg = null;
+	private String imgPath;
 	private Score score;
 	
 	public Clown(int x, int y) {
@@ -33,22 +35,16 @@ public class Clown {
 		S2.attachObserver(score);
 	}
 	public void draw(Graphics2D g) {
-		g.drawImage(clownImg, posx, posy, null);
+		Image img = null;
+		img = Toolkit.getDefaultToolkit().getImage(
+				new File("img/" + imgPath).getAbsolutePath());
+		g.drawImage(img, posx, posy, null);
 		S1.draw(g);
 		S2.draw(g);
 	}
 	
-	public void setImage (String img) {
-		try {
-			clownImg = ImageIO
-					.read(new File("img/" + img));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void setImage (String imgPath) {
+		this.imgPath = imgPath;
 	}
 	
 	public void move(int dx, int dy) {

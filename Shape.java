@@ -12,6 +12,14 @@ public abstract class Shape {
 	protected String state ;
 	protected String suffix;
 	
+	public void setX (int x) {
+		this.x = x;
+	}
+
+	public void setY (int y) {
+		this.y = y;
+	}
+	
 	public void setSuffix(String suffix)
 	{
 		this.suffix = suffix ;

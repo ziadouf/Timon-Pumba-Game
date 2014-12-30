@@ -54,8 +54,12 @@ public class Circus {
 	public void checkOutOfCircus() {
 		for (int i=0 ; i<shapes.size() ; i++) {
 			if (shapes.get(i).isOutOfBounds()) {
-				Game.shapesPool.returnObject(shapes.get(i));
-				i--;
+				try {
+					Game.shapesPool.returnObject(shapes.get(i));
+					i--;
+				} catch (Exception e) {
+					
+				}
 			}
 		}
 	}

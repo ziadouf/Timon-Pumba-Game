@@ -51,7 +51,8 @@ public class Constants {
 	// CLOWN MOVE SPEED
 	public static final int CLOWN_SPEED = 5;
 
-	public static final int POOL_SIZE = 100;
+	public static final int POOL_SIZE = 2;
+	public static final int MAX_POOL_SIZE = 1000;
 	public static final double NUM_SECS_BETWEEN_FALLING = 1;
 	public static final int SCORE_INCREMENT = 5;
 }

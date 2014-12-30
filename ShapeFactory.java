@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.apache.commons.pool2.BasePooledObjectFactory;
@@ -14,21 +15,26 @@ public class ShapeFactory extends BasePooledObjectFactory<Shape> {
 		Shape myshape = null ;
 		
 		char[] shapeTypes = {'R','C'};
+		ArrayList<Class> shapesClasses = Controller.classes;
 		Color [] shapeColors = {Color.blue,Color.red,Color.green,Color.yellow};
 		String [] shapeSuffix = {"blue","red","green","yellow"};
 		char shapeType = shapeTypes[new Random().nextInt(shapeTypes.length)];
 		int shapeColor = new Random().nextInt(shapeColors.length);
 		int randomPosition = new Random().nextInt(Constants.BORDER_MAX_WIDTH-50);
+		Class shapeClass = shapesClasses.get(new Random().nextInt(shapesClasses.size()));
 		
-		if(shapeType == 'C')
-		{
-			myshape = new Bug(randomPosition,0) ;
-		}
-		
-		else if(shapeType == 'R')
-		{
-			myshape = new Worm(randomPosition,0) ;
-		}
+		myshape = (Shape) shapeClass.newInstance();
+		myshape.setX(randomPosition);
+		myshape.setY(0);
+//		if(shapeType == 'C')
+//		{
+//			myshape = new Bug(randomPosition,0) ;
+//		}
+//		
+//		else if(shapeType == 'R')
+//		{
+//			myshape = new Worm(randomPosition,0) ;
+//		}
 		
 		myshape.setColor(shapeColors[shapeColor]);
 		myshape.setSuffix(shapeSuffix[shapeColor]);

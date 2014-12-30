@@ -39,7 +39,7 @@ public class ClownStack extends Observer {
 		shapesStack.add(C);
 		shapesStack.add(B);
 		shapesStack.add(A);
-		return (A.getColor() == B.getColor() && A.getColor() == C.getColor());
+		return A.getColor().equals(B.getColor()) && A.getColor().equals(C.getColor());
 	}
 	
 	public void attachObserver (Observer observer) {
@@ -81,9 +81,30 @@ public class ClownStack extends Observer {
 
 	@Override
 	public void update() {
-		Game.shapesPool.returnObject(shapesStack.pop());
-		Game.shapesPool.returnObject(shapesStack.pop());
-		Game.shapesPool.returnObject(shapesStack.pop());
+		Shape A = shapesStack.pop();
+		Shape B = shapesStack.pop();
+		Shape C = shapesStack.pop();
+		try {
+			Game.shapesPool.returnObject(A);
+		} catch (Exception e) {
+			A.reset();
+			Game.getCircus1().shapes.remove(A);
+			Game.getCircus2().shapes.remove(A);
+		}
+		try {
+			Game.shapesPool.returnObject(B);
+		} catch (Exception e) {
+			B.reset();
+			Game.getCircus1().shapes.remove(B);
+			Game.getCircus2().shapes.remove(B);
+		}
+		try {
+			Game.shapesPool.returnObject(C);
+		} catch (Exception e) {
+			C.reset();
+			Game.getCircus1().shapes.remove(C);
+			Game.getCircus2().shapes.remove(C);
+		}
 		
 		// TODO(ziadouf): make a blink when removed.
 	}
