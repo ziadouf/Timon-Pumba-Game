@@ -26,7 +26,7 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 	MenuItem mainMenuNewGame, mainMenuContinue, mainMenuExit;
 	int timonScoreAmount = 0 ;
 	int pumbaScoreAmount = 0 ;
-	JLabel  timonScore , pumbaScore ;
+	JLabel  timonScore , pumbaScore , label1 , label2 ;
 
 	public GUI_JPanel() {
 		try {
@@ -35,12 +35,6 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JLabel label1 = new JLabel();
-		label1.setText("SCORE");
-		label1.setBounds(20, 10, 300, 50);
-		label1.setFont(new Font("Serif", Font.BOLD, 52));
-		label1.setForeground(new Color(255, 178, 102));
-		// add(label1);
 
 		keyListener = new MultiKeyListener(this);
 		addKeyListener(keyListener);
@@ -48,17 +42,35 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		play.initializeGame();
 		timer.start();
 		
+		label1 = new JLabel();
+		label1.setText("TIMON");
+		label1.setLocation(180, 50);
+	    label1.setSize(40, 30);
+		label1.setFont(woodFont);
+	    label1.setForeground(new Color(255, 173, 101));
+	    label1.setSize(label1.getPreferredSize());
+		//add(label1);
+	    
+	    label2 = new JLabel();
+		label2.setText("PUMBA");
+		label2.setLocation(1000, 50);
+	    label2.setSize(40, 30);
+		label2.setFont(woodFont);
+	    label2.setForeground(new Color(255, 173, 101));
+	    label2.setSize(label2.getPreferredSize());
+	    //add(label2);
+		
 		 timonScore = new JLabel(""+timonScoreAmount);
 	     timonScore.setLocation(510, 90);
 	     timonScore.setSize(40, 30);
 	     timonScore.setHorizontalAlignment(0);
-	     add(timonScore);
+	     //add(timonScore);
 	     
 	     pumbaScore = new JLabel(""+pumbaScoreAmount);
 	     pumbaScore.setLocation(769, 90);
 	     pumbaScore.setSize(40, 30);
 	     pumbaScore.setHorizontalAlignment(0);
-	     add(pumbaScore);
+	     //add(pumbaScore);
 	     
 	     timonScore.setFont(woodFont);
 	     timonScore.setForeground(new Color(255, 173, 101));
@@ -69,7 +81,7 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 	     pumbaScore.setSize(pumbaScore.getPreferredSize());
      
 	}
-
+	    
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
@@ -82,11 +94,11 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 				new File("img/background6.jpg").getAbsolutePath());
 		g2D.drawImage(background, 0, 0, Constants.BORDER_MAX_WIDTH,
 				Constants.BORDER_MAX_HEIGHT, null);
-
+		
 		// g2D.drawString(myMessage, 50, 50);
 		// Font font = new Font("Serif", Font.PLAIN, 96);
 		// g2D.setFont(font);
-		// el satr el tany kan: g.drawImage(background,0,0,null);
+		
 		// Draw Game
 		try {
 			play.render(g2D);
@@ -96,6 +108,16 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		}
 		
 		// Draw Menus
+		Image cornerpic = null ;
+		cornerpic = Toolkit.getDefaultToolkit().getImage(
+				new File("img/brown3.png").getAbsolutePath());
+		Image cornerpic2 = null ;
+		cornerpic2 = Toolkit.getDefaultToolkit().getImage(
+				new File("img/brown5.png").getAbsolutePath());
+		if (play.getState().equals("Playing") || play.getState().equals("Paused"))
+			g.drawImage(cornerpic, -20, -20, null);
+		if (play.getState().equals("Playing") || play.getState().equals("Paused"))
+			g.drawImage(cornerpic2, 888, -20, null);
 		if (play.getState().equals("Paused"))
 			drawPauseMenu(g2D);
 		if (play.getState().equals("GameOver"))
@@ -106,8 +128,19 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		Image scorepic = null;
 		scorepic = Toolkit.getDefaultToolkit().getImage(
 				new File("img/hakuna matata11.png").getAbsolutePath());
+		
 		if (play.getState().equals("Playing") || play.getState().equals("Paused"))
 			g.drawImage(scorepic, 470, 0, null);
+		if (play.getState().equals("Playing") || play.getState().equals("Paused")) {
+			add(pumbaScore);
+			add(timonScore);
+		}
+		else {
+			remove(pumbaScore);
+			remove(timonScore);
+		}
+		//if (play.getState().equals("Playing") || play.getState().equals("Paused")) add(label1) ;
+		//if (play.getState().equals("Playing") || play.getState().equals("Paused")) add(label2) ;
 	}
 
 	private void drawPauseMenu(Graphics2D g) {

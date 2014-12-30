@@ -190,6 +190,7 @@ public class Controller {
 				loadGame();
 			} else if (sel.equals(Constants.MENU_EXIT)) {
 				// TODO(ziadouf): Exit Game.
+				System.exit(0);
 			}
 		}
 	}

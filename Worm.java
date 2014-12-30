@@ -17,7 +17,7 @@ public class Worm extends Shape {
 		Image img = null;
 		img = Toolkit.getDefaultToolkit().getImage(
 				new File("img/worm_" + suffix + ".png").getAbsolutePath());
-		g.drawImage(img, x, y,80,80, null);
+		g.drawImage(img, x, y, null);
 
 	}
 
