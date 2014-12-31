@@ -287,9 +287,10 @@ public class Controller {
 	}
 
 	public String getWinner() {
-		if (Game.getCircus1().checkGameOver())
-			return Constants.PLAYER2;
-		else
-			return Constants.PLAYER1;
+		int scoreA = Game.getCircus1().getScore().getScore();
+		int scoreB = Game.getCircus2().getScore().getScore();
+		if (scoreA == scoreB) return "TIE !";
+		else if (scoreA > scoreB) return Constants.PLAYER1 + " Wins !";
+		else return Constants.PLAYER2 + " Wins !";
 	}
 }

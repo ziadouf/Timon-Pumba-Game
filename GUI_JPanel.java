@@ -114,7 +114,7 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 				Toolkit.getDefaultToolkit().getImage(
 						new File("img/semi_transparent_black.png")
 								.getAbsolutePath()), 0, 0, null);
-		winner.setText(play.getWinner() + " Wins!");
+		winner.setText(play.getWinner());
 		winner.setSize(winner.getPreferredSize());
 		winner.setLocation(Constants.BORDER_MAX_WIDTH / 2 - winner.getWidth()
 				/ 2, (int) (Constants.BORDER_MAX_HEIGHT / 2 - 7 * winner
