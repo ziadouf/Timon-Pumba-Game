@@ -42,12 +42,12 @@ public class Constants {
 
 	// CLOWN STACK DIMENSIONS
 	public static final int STACK_RECT_WIDTH = 80;
-	public static final int STACK_RECT_HEIGHT = 5;
+	public static final int STACK_RECT_HEIGHT = 10;
 	public static final int BORDER_TOLERANCE = 20;	// To keep space between stack and game border.
 	// CLOWN STACK POSITION
 	public static final int STACK_LEFT_POSITION_DIFF = 0;
 	public static final int STACK_RIGHT_POSITION_DIFF = 160;
-	public static final int STACK_TOP_POSITION_DIFF = -20;
+	public static final int STACK_TOP_POSITION_DIFF = -50;
 	
 	// SHAPES DIMENSIONS
 	public static final int CIRCLE_RADIUS = 20;

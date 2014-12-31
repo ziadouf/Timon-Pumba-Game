@@ -250,7 +250,11 @@ public class Controller {
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter(new File("game.xml").getAbsolutePath());
-			String xml = xstream.toXML(new Snapshot());
+			Caretaker caretaker = new Caretaker();
+			Originator org = new Originator();
+			org.set(Game.getCircus1(), Game.getCircus2());
+			caretaker.setSnapshot(org.saveToSnapshot());
+			String xml = xstream.toXML(caretaker.getSnapshot());
 			out.println(xml);
 		} catch (Exception e) {
 			e.printStackTrace();

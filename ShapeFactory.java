@@ -26,15 +26,6 @@ public class ShapeFactory extends BasePooledObjectFactory<Shape> {
 		myshape = (Shape) shapeClass.newInstance();
 		myshape.setX(randomPosition);
 		myshape.setY(0);
-//		if(shapeType == 'C')
-//		{
-//			myshape = new Bug(randomPosition,0) ;
-//		}
-//		
-//		else if(shapeType == 'R')
-//		{
-//			myshape = new Worm(randomPosition,0) ;
-//		}
 		
 		myshape.setColor(shapeColors[shapeColor]);
 		myshape.setSuffix(shapeSuffix[shapeColor]);

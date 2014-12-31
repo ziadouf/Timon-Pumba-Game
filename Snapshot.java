@@ -1,12 +1,10 @@
 
 public class Snapshot {
 	private Circus c1,c2;
-	private ShapePool pool;
 	
-	Snapshot () {
-		c1 = Game.getCircus1();
-		c2 = Game.getCircus2();
-		//pool = Game.shapesPool;
+	Snapshot (Circus c1 , Circus c2) {
+		this.c1 = c1;
+		this.c2 = c2;
 	}
 
 	public Circus getC1() {
@@ -17,7 +15,4 @@ public class Snapshot {
 		return c2;
 	}
 
-	public ShapePool getPool() {
-		return pool;
-	}
 }

@@ -36,7 +36,6 @@ public class Game {
 		}
 		Circus1 = s.getC1();
 		Circus2 = s.getC2();
-//		shapesPool = s.getPool();
 		return instance;
 	}
 	

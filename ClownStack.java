@@ -1,7 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -17,9 +20,13 @@ public class ClownStack extends Observer {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(posx, posy, Constants.STACK_RECT_WIDTH,
-				Constants.STACK_RECT_HEIGHT);
+		Image img = null;
+		img = Toolkit.getDefaultToolkit().getImage(
+				new File("img/plate.png").getAbsolutePath());
+		g.drawImage(img, posx, posy, null);
+//		g.setColor(Color.BLACK);
+//		g.fillRect(posx, posy, Constants.STACK_RECT_WIDTH,
+//				Constants.STACK_RECT_HEIGHT);
 	}
 
 	public void addShape(Shape shape) {
