@@ -14,6 +14,12 @@ public class Constants {
 	public static final String MENU_CONTINUE = "CONTINUE";
 	public static final String MENU_EXIT = "EXIT";
 	
+	// GAME STATES
+	public static final String PLAYING = "Playing";
+	public static final String PAUSED = "Paused";
+	public static final String MAINMENU = "MainMenu";
+	public static final String GAMEOVER = "GameOver";
+	
 	// MENU COLORS
 	public static final Color COL_UNSELECTED = new Color(255,173,101);
 	public static final Color COL_SELECTED = Color.WHITE;

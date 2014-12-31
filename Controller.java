@@ -28,55 +28,14 @@ public class Controller {
 	public ArrayList<MenuItem> gameoverMenu = new ArrayList<MenuItem>();
 	public static ArrayList<Class> classes = new ArrayList<Class>();
 	private Game game;
-	private String gameState;
+	// private String gameState;
+	private State gameState;
 	private long lastBorrow = 0;
 	private MenuItem curSel;
 
 	private Controller() {
-		com.sun.tools.javac.Main.compile(new String[] {
-	            "-classpath", "bin",
-	            "-d", "bin",
-	            "shapes/Bug2.java" });
-	    File classesDir = new File("dynamic");
-	    ClassLoader parentLoader = Shape.class.getClassLoader();
-	    URLClassLoader loader1 = null;
-		try {
-			loader1 = new URLClassLoader(
-			        new URL[] { classesDir.toURL() }, parentLoader);
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	    Class cls1 = null;
-		try {
-			cls1 = loader1.loadClass("Bug2");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    classes.add(cls1);
-	    
-	    com.sun.tools.javac.Main.compile(new String[] {
-	            "-classpath", "bin",
-	            "-d", "bin",
-	            "shapes/Worm2.java" });
-	    classesDir = new File("dynamic");
-	    parentLoader = Shape.class.getClassLoader();
-	    try {
-			loader1 = new URLClassLoader(
-			        new URL[] { classesDir.toURL() }, parentLoader);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    Class cls2 = null;
-		try {
-			cls2 = loader1.loadClass("Worm2");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    classes.add(cls2);	    
+		addClass("", "Bug2");
+		addClass("", "Worm2");
 	}
 
 	public static Controller getInstance() {
@@ -85,10 +44,35 @@ public class Controller {
 		return instance;
 	}
 
+	private void addClass(String packageName, String className) {
+		if (packageName != "")
+			packageName += '.';
+		com.sun.tools.javac.Main.compile(new String[] { "-classpath", "bin",
+				"-d", "bin", "shapes/" + className + ".java" });
+		File classesDir = new File("dynamic");
+		ClassLoader parentLoader = Shape.class.getClassLoader();
+		URLClassLoader loader1 = null;
+		try {
+			loader1 = new URLClassLoader(new URL[] { classesDir.toURL() },
+					parentLoader);
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Class cls = null;
+		try {
+			cls = loader1.loadClass(packageName + className);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		classes.add(cls);
+	}
+
 	public void initializeGame() {
-		gameState = "MainMenu";
+		gameState = new StateMainMenu();
 		MyIterator it = new MyIterator(mainMenu);
-		
+
 		while (it.hasNext()) {
 			MenuItem item = (MenuItem) it.getItem();
 			item.setSelected(false);
@@ -107,39 +91,30 @@ public class Controller {
 	}
 
 	public void render(Graphics2D g) {
-		if (gameState.equals("MainMenu")) {
-
-		} else if (gameState.equals("Playing")) {
+		gameState.draw(g);
+		if (gameState.getState().equals(Constants.PLAYING)) {
 			try {
 				borrowShapes();
 			} catch (Exception e) {
 			}
-			Game.getCircus1().moveShapes();
-			Game.getCircus2().moveShapes();
 			if (Game.getCircus1().checkGameOver()
-					|| Game.getCircus2().checkGameOver()) {
-				gameState = "GameOver";
-				MyIterator it = new MyIterator(gameoverMenu);
-				
-				while (it.hasNext()) {
-					MenuItem item = (MenuItem) it.getItem();
-					item.setSelected(false);
-				}
-				curSel = (MenuItem) it.getFirst();
-				curSel.setSelected(true);
-				return;
-			} else {
+				|| Game.getCircus2().checkGameOver()) {
+			gameState = new StateGameover();
+			MyIterator it = new MyIterator(gameoverMenu);
+			
+			while (it.hasNext()) {
+				MenuItem item = (MenuItem) it.getItem();
+				item.setSelected(false);
+			}
+			curSel = (MenuItem) it.getFirst();
+			curSel.setSelected(true);
+			return;
+			}
+			else {
 				Game.getCircus1().checkOutOfCircus();
 				Game.getCircus2().checkOutOfCircus();
 			}
-			Game.getCircus1().draw(g);
-			Game.getCircus2().draw(g);
 			moveClown();
-		}
-
-		else if (gameState.equals("Paused") || gameState.equals("GameOver")) {
-			Game.getCircus1().draw(g);
-			Game.getCircus2().draw(g);
 		}
 	}
 
@@ -168,17 +143,17 @@ public class Controller {
 	}
 
 	public void handleKeyPress(int keyPressed) {
-		if (gameState.equals("MainMenu")) {
+		if (getState().equals(Constants.MAINMENU)) {
 			handleMainMenu(keyPressed);
-		} else if (gameState.equals("Paused"))
+		} else if (getState().equals(Constants.PAUSED))
 			handlePauseMenu(keyPressed);
-		else if (gameState.equals("GameOver")) {
+		else if (getState().equals(Constants.GAMEOVER)) {
 			handleGameoverMenu(keyPressed);
 		} else if (keyPressed == KeyEvent.VK_SPACE
 				|| keyPressed == KeyEvent.VK_ESCAPE) {
-			gameState = "Paused";
+			gameState = new StatePaused();
 			MyIterator it = new MyIterator(pauseMenu);
-			
+
 			while (it.hasNext()) {
 				MenuItem item = (MenuItem) it.getItem();
 				item.setSelected(false);
@@ -218,7 +193,7 @@ public class Controller {
 		} else if (keyPressed == KeyEvent.VK_ENTER) {
 			String sel = curSel.getLbl().getText();
 			if (sel.equals(Constants.MENU_RESUME)) {
-				gameState = "Playing";
+				gameState = new StatePlaying();
 			} else if (sel.equals(Constants.MENU_SAVE)) {
 				saveGame();
 			} else if (sel.equals(Constants.MENU_BACK)) {
@@ -241,7 +216,7 @@ public class Controller {
 			String sel = curSel.getLbl().getText();
 			if (sel.equals(Constants.MENU_PLAYAGAIN)) {
 				game.newGame();
-				gameState = "Playing";
+				gameState = new StatePlaying();
 			} else if (sel.equals(Constants.MENU_BACK)) {
 				initializeGame();
 			}
@@ -261,7 +236,7 @@ public class Controller {
 			String sel = curSel.getLbl().getText();
 			if (sel.equals(Constants.MENU_NEWGAME)) {
 				game.newGame();
-				gameState = "Playing";
+				gameState = new StatePlaying();
 			} else if (sel.equals(Constants.MENU_CONTINUE)) {
 				loadGame();
 			} else if (sel.equals(Constants.MENU_EXIT)) {
@@ -288,31 +263,33 @@ public class Controller {
 		String xml = "";
 		BufferedReader in = null;
 		try {
-			in = new BufferedReader(new FileReader(new File("game.xml").getAbsolutePath()));
+			in = new BufferedReader(new FileReader(
+					new File("game.xml").getAbsolutePath()));
 		} catch (FileNotFoundException e1) {
 			game.newGame();
 			return;
 		}
-		String line ;
+		String line;
 		try {
-			while (( line = in.readLine()) != null) 
-			{
-				xml += line ;
+			while ((line = in.readLine()) != null) {
+				xml += line;
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		Snapshot s = (Snapshot) xstream.fromXML(xml);
 		Game.loadGame(s);
-		gameState = "Playing";
+		gameState = new StatePlaying();
 	}
 
 	public String getState() {
-		return gameState;
+		return gameState.getState();
 	}
-	
+
 	public String getWinner() {
-		if (Game.getCircus1().checkGameOver()) return Constants.PLAYER2;
-		else return Constants.PLAYER1;
+		if (Game.getCircus1().checkGameOver())
+			return Constants.PLAYER2;
+		else
+			return Constants.PLAYER1;
 	}
 }

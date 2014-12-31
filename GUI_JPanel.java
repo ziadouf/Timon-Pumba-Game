@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -68,29 +69,29 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		Image cornerpic2 = null;
 		cornerpic2 = Toolkit.getDefaultToolkit().getImage(
 				new File("img/brown5.png").getAbsolutePath());
-		if (play.getState().equals("Playing")
-				|| play.getState().equals("Paused")) {
+		if (play.getState().equals(Constants.PLAYING)
+				|| play.getState().equals(Constants.PAUSED)) {
 			g.drawImage(cornerpic, -20, -20, null);
 			g.drawImage(cornerpic2, 888, -20, null);
 		}
 
 		// Draw Menus
-		if (play.getState().equals("Paused"))
+		if (play.getState().equals(Constants.PAUSED))
 			drawPauseMenu(g2D);
-		if (play.getState().equals("GameOver"))
+		if (play.getState().equals(Constants.GAMEOVER))
 			drawGameoverMenu(g2D);
-		if (play.getState().equals("MainMenu"))
+		if (play.getState().equals(Constants.MAINMENU))
 			drawMainMenu(g2D);
 
 		Image scorepic = null;
 		scorepic = Toolkit.getDefaultToolkit().getImage(
 				new File("img/hakuna matata11.png").getAbsolutePath());
 
-		if (play.getState().equals("Playing")
-				|| play.getState().equals("Paused"))
+		if (play.getState().equals(Constants.PLAYING)
+				|| play.getState().equals(Constants.PAUSED))
 			g.drawImage(scorepic, 470, 0, null);
-		if (play.getState().equals("Playing")
-				|| play.getState().equals("Paused")) {
+		if (play.getState().equals(Constants.PLAYING)
+				|| play.getState().equals(Constants.PAUSED)) {
 			add(pumbaScore);
 			add(timonScore);
 		} else {
