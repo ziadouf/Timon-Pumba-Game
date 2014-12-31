@@ -24,9 +24,7 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 	MenuItem pauseMenuResume, pauseMenuSave, pauseMenuBack;
 	MenuItem gameoverMenuPlay, gameoverMenuBack;
 	MenuItem mainMenuNewGame, mainMenuContinue, mainMenuExit;
-	int timonScoreAmount = 0 ;
-	int pumbaScoreAmount = 0 ;
-	JLabel  timonScore , pumbaScore , label1 , label2 ;
+	JLabel timonScore, pumbaScore, winner;
 
 	public GUI_JPanel() {
 		try {
@@ -41,47 +39,8 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		initiate();
 		play.initializeGame();
 		timer.start();
-		
-		label1 = new JLabel();
-		label1.setText("TIMON");
-		label1.setLocation(180, 50);
-	    label1.setSize(40, 30);
-		label1.setFont(woodFont);
-	    label1.setForeground(new Color(255, 173, 101));
-	    label1.setSize(label1.getPreferredSize());
-		//add(label1);
-	    
-	    label2 = new JLabel();
-		label2.setText("PUMBA");
-		label2.setLocation(1000, 50);
-	    label2.setSize(40, 30);
-		label2.setFont(woodFont);
-	    label2.setForeground(new Color(255, 173, 101));
-	    label2.setSize(label2.getPreferredSize());
-	    //add(label2);
-		
-		 timonScore = new JLabel(""+timonScoreAmount);
-	     timonScore.setLocation(510, 90);
-	     timonScore.setSize(40, 30);
-	     timonScore.setHorizontalAlignment(0);
-	     //add(timonScore);
-	     
-	     pumbaScore = new JLabel(""+pumbaScoreAmount);
-	     pumbaScore.setLocation(769, 90);
-	     pumbaScore.setSize(40, 30);
-	     pumbaScore.setHorizontalAlignment(0);
-	     //add(pumbaScore);
-	     
-	     timonScore.setFont(woodFont);
-	     timonScore.setForeground(new Color(255, 173, 101));
-	     timonScore.setSize(timonScore.getPreferredSize());
-	     
-	     pumbaScore.setFont(woodFont);
-	     pumbaScore.setForeground(new Color(255, 173, 101));
-	     pumbaScore.setSize(pumbaScore.getPreferredSize());
-     
 	}
-	    
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
@@ -94,11 +53,7 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 				new File("img/background6.jpg").getAbsolutePath());
 		g2D.drawImage(background, 0, 0, Constants.BORDER_MAX_WIDTH,
 				Constants.BORDER_MAX_HEIGHT, null);
-		
-		// g2D.drawString(myMessage, 50, 50);
-		// Font font = new Font("Serif", Font.PLAIN, 96);
-		// g2D.setFont(font);
-		
+
 		// Draw Game
 		try {
 			play.render(g2D);
@@ -106,41 +61,42 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		// Draw Menus
-		Image cornerpic = null ;
+
+		Image cornerpic = null;
 		cornerpic = Toolkit.getDefaultToolkit().getImage(
 				new File("img/brown3.png").getAbsolutePath());
-		Image cornerpic2 = null ;
+		Image cornerpic2 = null;
 		cornerpic2 = Toolkit.getDefaultToolkit().getImage(
 				new File("img/brown5.png").getAbsolutePath());
-		if (play.getState().equals("Playing") || play.getState().equals("Paused"))
+		if (play.getState().equals("Playing")
+				|| play.getState().equals("Paused")) {
 			g.drawImage(cornerpic, -20, -20, null);
-		if (play.getState().equals("Playing") || play.getState().equals("Paused"))
 			g.drawImage(cornerpic2, 888, -20, null);
+		}
+
+		// Draw Menus
 		if (play.getState().equals("Paused"))
 			drawPauseMenu(g2D);
 		if (play.getState().equals("GameOver"))
 			drawGameoverMenu(g2D);
 		if (play.getState().equals("MainMenu"))
 			drawMainMenu(g2D);
-		
+
 		Image scorepic = null;
 		scorepic = Toolkit.getDefaultToolkit().getImage(
 				new File("img/hakuna matata11.png").getAbsolutePath());
-		
-		if (play.getState().equals("Playing") || play.getState().equals("Paused"))
+
+		if (play.getState().equals("Playing")
+				|| play.getState().equals("Paused"))
 			g.drawImage(scorepic, 470, 0, null);
-		if (play.getState().equals("Playing") || play.getState().equals("Paused")) {
+		if (play.getState().equals("Playing")
+				|| play.getState().equals("Paused")) {
 			add(pumbaScore);
 			add(timonScore);
-		}
-		else {
+		} else {
 			remove(pumbaScore);
 			remove(timonScore);
 		}
-		//if (play.getState().equals("Playing") || play.getState().equals("Paused")) add(label1) ;
-		//if (play.getState().equals("Playing") || play.getState().equals("Paused")) add(label2) ;
 	}
 
 	private void drawPauseMenu(Graphics2D g) {
@@ -157,6 +113,12 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 				Toolkit.getDefaultToolkit().getImage(
 						new File("img/semi_transparent_black.png")
 								.getAbsolutePath()), 0, 0, null);
+		winner.setText(play.getWinner() + " Wins!");
+		winner.setSize(winner.getPreferredSize());
+		winner.setLocation(Constants.BORDER_MAX_WIDTH / 2 - winner.getWidth()
+				/ 2, (int) (Constants.BORDER_MAX_HEIGHT / 2 - 7 * winner
+				.getPreferredSize().getHeight()));
+		winner.setVisible(true);
 		for (MenuItem item : play.gameoverMenu)
 			item.getLbl().setVisible(true);
 	}
@@ -262,6 +224,23 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 		play.mainMenu.add(mainMenuNewGame);
 		play.mainMenu.add(mainMenuContinue);
 		play.mainMenu.add(mainMenuExit);
+
+		timonScore = new JLabel();
+		timonScore.setLocation(510, 90);
+		timonScore.setFont(woodFont);
+		timonScore.setForeground(Constants.COL_UNSELECTED);
+		timonScore.setSize(timonScore.getPreferredSize());
+
+		pumbaScore = new JLabel();
+		pumbaScore.setLocation(769, 90);
+		pumbaScore.setFont(woodFont);
+		pumbaScore.setForeground(Constants.COL_UNSELECTED);
+		pumbaScore.setSize(pumbaScore.getPreferredSize());
+		
+		winner = new JLabel();
+		winner.setFont(woodFont);
+		winner.setForeground(new Color(204,229,255));
+		add(winner);
 	}
 
 	private void hideLabels() {
@@ -271,11 +250,12 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 			item.getLbl().setVisible(false);
 		for (MenuItem item : play.mainMenu)
 			item.getLbl().setVisible(false);
+		winner.setVisible(false);
 	}
 
 	private void adjustLabel(JLabel lbl) {
 		lbl.setFont(woodFont);
-		lbl.setForeground(new Color(255, 173, 101));
+		lbl.setForeground(Constants.COL_UNSELECTED);
 		lbl.setSize(lbl.getPreferredSize());
 		int posx = Constants.BORDER_MAX_WIDTH / 2 - lbl.getWidth() / 2;
 		lbl.setLocation(posx, (int) lbl.getLocation().getY());
@@ -285,12 +265,14 @@ public class GUI_JPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
-			timonScore.setText(String.valueOf(Game.getCircus1().getScore().getScore()));
-			pumbaScore.setText(String.valueOf(Game.getCircus2().getScore().getScore()));
+			timonScore.setText(String.valueOf(Game.getCircus1().getScore()
+					.getScore()));
+			pumbaScore.setText(String.valueOf(Game.getCircus2().getScore()
+					.getScore()));
 			timonScore.setSize(timonScore.getPreferredSize());
 			pumbaScore.setSize(pumbaScore.getPreferredSize());
 			repaint();
 		}
-		
+
 	}
 }

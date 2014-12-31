@@ -87,10 +87,13 @@ public class Controller {
 
 	public void initializeGame() {
 		gameState = "MainMenu";
-		for (MenuItem item : mainMenu) {
+		MyIterator it = new MyIterator(mainMenu);
+		
+		while (it.hasNext()) {
+			MenuItem item = (MenuItem) it.getItem();
 			item.setSelected(false);
 		}
-		curSel = mainMenu.get(0);
+		curSel = (MenuItem) it.getFirst();
 		curSel.setSelected(true);
 	}
 
@@ -116,10 +119,13 @@ public class Controller {
 			if (Game.getCircus1().checkGameOver()
 					|| Game.getCircus2().checkGameOver()) {
 				gameState = "GameOver";
-				for (MenuItem item : gameoverMenu) {
+				MyIterator it = new MyIterator(gameoverMenu);
+				
+				while (it.hasNext()) {
+					MenuItem item = (MenuItem) it.getItem();
 					item.setSelected(false);
 				}
-				curSel = gameoverMenu.get(0);
+				curSel = (MenuItem) it.getFirst();
 				curSel.setSelected(true);
 				return;
 			} else {
@@ -171,10 +177,13 @@ public class Controller {
 		} else if (keyPressed == KeyEvent.VK_SPACE
 				|| keyPressed == KeyEvent.VK_ESCAPE) {
 			gameState = "Paused";
-			for (MenuItem item : pauseMenu) {
+			MyIterator it = new MyIterator(pauseMenu);
+			
+			while (it.hasNext()) {
+				MenuItem item = (MenuItem) it.getItem();
 				item.setSelected(false);
 			}
-			curSel = pauseMenu.get(0);
+			curSel = (MenuItem) it.getFirst();
 			curSel.setSelected(true);
 		}
 		pressedKeys.add(keyPressed);
@@ -254,7 +263,6 @@ public class Controller {
 				game.newGame();
 				gameState = "Playing";
 			} else if (sel.equals(Constants.MENU_CONTINUE)) {
-				System.out.println("HERE");
 				loadGame();
 			} else if (sel.equals(Constants.MENU_EXIT)) {
 				System.exit(0);
@@ -294,7 +302,6 @@ public class Controller {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println("JJJ");
 		Snapshot s = (Snapshot) xstream.fromXML(xml);
 		Game.loadGame(s);
 		gameState = "Playing";
@@ -302,5 +309,10 @@ public class Controller {
 
 	public String getState() {
 		return gameState;
+	}
+	
+	public String getWinner() {
+		if (Game.getCircus1().checkGameOver()) return Constants.PLAYER2;
+		else return Constants.PLAYER1;
 	}
 }

@@ -1,11 +1,15 @@
 import java.awt.Color;
 
 public class Constants {
+	// PLAYER NAMES
+	public static final String PLAYER1 = "Timon";
+	public static final String PLAYER2 = "Pumbaa";
+	
 	// MENU LABELS
 	public static final String MENU_RESUME = "RESUME";
 	public static final String MENU_SAVE = "SAVE";
 	public static final String MENU_BACK = "BACK TO MAIN MENU";
-	public static final String MENU_PLAYAGAIN = "PlAY AGAIN";
+	public static final String MENU_PLAYAGAIN = "PLAY AGAIN";
 	public static final String MENU_NEWGAME = "NEW GAME";
 	public static final String MENU_CONTINUE = "CONTINUE";
 	public static final String MENU_EXIT = "EXIT";
@@ -50,7 +54,8 @@ public class Constants {
 
 	// CLOWN MOVE SPEED
 	public static final int CLOWN_SPEED = 5;
-
+	
+	// MISC
 	public static final int POOL_SIZE = 2;
 	public static final int MAX_POOL_SIZE = 1000;
 	public static final double NUM_SECS_BETWEEN_FALLING = 1;
